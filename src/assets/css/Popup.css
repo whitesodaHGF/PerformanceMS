@@ -1,0 +1,78 @@
+* {
+	PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; FONT-SIZE: 12px; PADDING-TOP: 0px
+}
+.popup_prompt {
+	BORDER-BOTTOM: #909090 1px solid; BORDER-LEFT: #909090 1px solid; BACKGROUND: #fff; BORDER-TOP: #909090 1px solid; BORDER-RIGHT: #909090 1px solid
+}
+.popup_prompt .popup_header {
+	
+}
+.popup_prompt H1 {
+	TEXT-INDENT: 10px; MARGIN: 1px; HEIGHT: 25px; COLOR: #f4793a; FONT-SIZE: 13px; FONT-WEIGHT: bold; PADDING-TOP: 7px
+}
+.popup_prompt .popup_content {
+	PADDING-BOTTOM: 10px; MARGIN: 1px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; FONT-SIZE: 13px; PADDING-TOP: 10px
+}
+.popup_prompt .buttonRow {
+	TEXT-ALIGN: right; LINE-HEIGHT: 30px; MARGIN: 1px; HEIGHT: 30px
+}
+.popup_prompt INPUT {
+	BORDER-BOTTOM: #808080 1px solid; BORDER-LEFT: #808080 1px solid; PADDING-BOTTOM: 0px; LINE-HEIGHT: 18px; PADDING-LEFT: 3px; PADDING-RIGHT: 3px; HEIGHT: 20px; COLOR: #555; BORDER-TOP: #808080 1px solid; MARGIN-RIGHT: 5px; BORDER-RIGHT: #808080 1px solid; PADDING-TOP: 0px
+}
+.popup_tip {
+	BORDER-BOTTOM: #684e02 1px solid; FILTER: Alpha(Opacity=80); BORDER-LEFT: #684e02 1px solid; VERTICAL-ALIGN: middle; BORDER-TOP: #684e02 1px solid; BORDER-RIGHT: #684e02 1px solid; -moz-opacity: 0.8
+}
+.popup_tip .popup_content {
+	TEXT-ALIGN: center; BACKGROUND: #fcfbe0; COLOR: #000
+}
+.popup_tip IMG {
+	VERTICAL-ALIGN: middle
+}
+.popup_help_up {
+	FILTER: Alpha(Opacity=85); WIDTH: 271px
+}
+.popup_help_down {
+	FILTER: Alpha(Opacity=85); WIDTH: 271px
+}
+.popup_help_up {
+	BACKGROUND: url(../images/help_t1.gif) no-repeat left top
+}
+.popup_help_down {
+	BACKGROUND: url(../images/help_t2.gif) no-repeat left top
+}
+.popup_help_up A:link {
+	TEXT-DECORATION: underline
+}
+.popup_help_down A:link {
+	TEXT-DECORATION: underline
+}
+.popup_help_up .popup_header {
+	MARGIN-TOP: 9px
+}
+.popup_help_down .popup_header {
+	MARGIN-TOP: 22px
+}
+.popup_help_up .popup_header {
+	BORDER-LEFT: #000 1px solid; BACKGROUND: #ffffe1; HEIGHT: 18px; BORDER-RIGHT: #000 1px solid
+}
+.popup_help_down .popup_header {
+	BORDER-LEFT: #000 1px solid; BACKGROUND: #ffffe1; HEIGHT: 18px; BORDER-RIGHT: #000 1px solid
+}
+.popup_help_up .popup_header H1 {
+	TEXT-INDENT: 28px; BACKGROUND: url(../images/action.gif) no-repeat 10px 0px; FONT-SIZE: 13px
+}
+.popup_help_down .popup_header H1 {
+	TEXT-INDENT: 28px; BACKGROUND: url(../images/action.gif) no-repeat 10px 0px; FONT-SIZE: 13px
+}
+.popup_help_up .popup_content {
+	BORDER-LEFT: #000 1px solid; PADDING-BOTTOM: 5px; LINE-HEIGHT: 16px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; BACKGROUND: #ffffe1; BORDER-RIGHT: #000 1px solid; PADDING-TOP: 5px
+}
+.popup_help_down .popup_content {
+	BORDER-LEFT: #000 1px solid; PADDING-BOTTOM: 5px; LINE-HEIGHT: 16px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; BACKGROUND: #ffffe1; BORDER-RIGHT: #000 1px solid; PADDING-TOP: 5px
+}
+.popup_help_up .popup_bottom {
+	BACKGROUND: url(../images/help_b1.gif) no-repeat left top; HEIGHT: 22px
+}
+.popup_help_down .popup_bottom {
+	BACKGROUND: url(../images/help_b2.gif) no-repeat left top; HEIGHT: 9px
+}
