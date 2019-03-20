@@ -20,11 +20,14 @@
     <span>纵向项目 10 项</span><br><br>
     <span>可申报项目信息 1 项</span><br><br>
     <span>待结项项目 4 项</span><br><br>
+    <el-button @click="getinfo">默认按钮</el-button>
     </el-card>
   </el-card>
 </template>
-
-<script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script> 
+//import util from '../../common/util';
+import API from '../api/api_test';
   export default {
     data() {  
       return {	
@@ -33,6 +36,14 @@
       }
     },
     methods: {
+      getinfo() {
+        // this.axios.post("http://api.komavideo.com/news/list").then(function(result){
+        //   console.log(result);
+        // })
+        API.test(1).then(function(result){
+          console.log(result);
+        })
+      },
     }
   }
 </script>
