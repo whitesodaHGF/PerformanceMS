@@ -4,7 +4,7 @@ let testController = {};
 const Test = require('../data/test');
 let _Test = Test;
 
-testController.T = function (req, res) {
+testController.T = (req, res) => {
 
   console.log('---Test---');
   console.log(_Test);
@@ -33,12 +33,9 @@ testController.T = function (req, res) {
   });
 
   return res.json({
-    id: user.id,
-    username: user.username,
-    nickname: user.nickname,
-    name: user.name,
-    email: user.email
+    id:'11111',
+    name:'hgf'
   });
-}
+};
 
 module.exports = testController;

@@ -1,7 +1,7 @@
 import axios from 'axios'
 import {bus} from '../bus.js'
 
-axios.defaults.withCredentials = true;
+axios.defaults.withCredentials = false;
 // axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';//配置请求头
 
@@ -31,7 +31,7 @@ axios.defaults.withCredentials = true;
 //   });
   
 //基地址
-let base ='https://127.0.0.1:3000';
+let base ='http://127.0.0.1:3000';
 
 //通用方法
 export const POST = (url,params) => {
