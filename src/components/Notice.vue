@@ -40,7 +40,7 @@ import API from '../api/api_test';
         // this.axios.post("http://api.komavideo.com/news/list").then(function(result){
         //   console.log(result);
         // })
-        API.test(1).then(function(result){
+        API.test().then(function(result){
           console.log(result);
         })
       },
