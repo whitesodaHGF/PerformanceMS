@@ -53,6 +53,8 @@ CREATE TABLE `T_user` (
   `T_experienceAbroad`            varchar(64)         ,		      #出国经历  
   `T_parttime`                    varchar(64)         ,		      #学术兼职
   `T_learnSpecialty`              varchar(64)         ,		      #学术特长  
-  PRIMARY KEY (`T_number`),
-  UNIQUE KEY `T_number` (`T_number`)
+  PRIMARY KEY (`T_account`),
+  UNIQUE KEY `T_account` (`T_account`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+

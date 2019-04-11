@@ -1,5 +1,5 @@
-DROP TABLE IF EXISTS `T_paper`;
-CREATE TABLE `T_paper` (
+DROP TABLE IF EXISTS `P_paper`;
+CREATE TABLE `P_paper` (
     `P_name`                        varchar(64) NOT NULL,			  #论文题目
     `P_paperModeId`                 varchar(64) NOT NULL,           #论文类型
     `P_subjectClassId`              varchar(20) NOT NULL,		      #学科门类
@@ -29,7 +29,7 @@ CREATE TABLE `T_paper` (
     `P_authorName`                  varchar(50)         ,             #成员姓名
     `P_sexId`                       varchar(50)         ,             #成员性别
     `P_authorCode`                  varchar(50)         ,             #作者职工号
-    `P_subject`                   varchar(50)         ,             #学科方向
+    `P_subject`                     varchar(50)         ,             #学科方向
     `P_titleId`                     varchar(50)         ,             #职称
     `P_eduLevelId`                  varchar(50)         ,             #学历
     `P_isTxzz`                      varchar(50)         ,             #是否通讯作者
@@ -41,3 +41,4 @@ CREATE TABLE `T_paper` (
     PRIMARY KEY (`P_name`),
     UNIQUE KEY `P_name` (`P_name`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+

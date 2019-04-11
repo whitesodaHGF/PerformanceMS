@@ -21,7 +21,7 @@
   <table id="table" cellspacing="0" cellpadding="0" align="center">
 	<tr>
 		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>人员名称：</td>
-		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.name'> 
+		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.name'>
 		<el-input name='bean.name'  id='name' size=20 v-model="T_name"   maxLength = '40' ></el-input>	<font color=red> *</font></div></td>
 		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>职工号：</td>
 		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.account'> 
@@ -766,7 +766,37 @@
     methods: {
       handleSelect(key, keyPath) {
         console.log(key, keyPath);
-      }
+      },
+      //新增
+      addPinfo: function () {
+        let that = this;
+        this.$refs.addForm.validate((valid) => {
+          if (valid) {
+            that.loading = true;
+            let para = Object.assign({}, this.addForm);
+            para.publishAt = (!para.pubilshAt || para.publishAt === '') ? '' : util.formatDate.format(new Date(para.publishAt), 'yyyy-MM-dd');
+            API.add(para).then(function (result) {
+              that.loading = false;
+              if (result && parseInt(result.errcode) === 0) {
+                that.$message.success({showClose: true, message: '新增成功', duration: 2000});
+                that.$refs['addForm'].resetFields();
+                that.addFormVisible = false;
+                that.search();
+              } else {
+                that.$message.error({showClose: true, message: '修改失败', duration: 2000});
+              }
+            }, function (err) {
+              that.loading = false;
+              that.$message.error({showClose: true, message: err.toString(), duration: 2000});
+            }).catch(function (error) {
+              that.loading = false;
+              console.log(error);
+              that.$message.error({showClose: true, message: '请求出现异常', duration: 2000});
+            });
+
+          }
+        });
+      },
     }
   }
 </script>
@@ -792,4 +822,3 @@ tr{
 	
 	
 	
-				
