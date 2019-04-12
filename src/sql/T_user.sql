@@ -1,10 +1,10 @@
 DROP TABLE IF EXISTS `T_user`;
 CREATE TABLE `T_user` (
   `T_name`                        varchar(20) NOT NULL,			    #人员名称
-  `T_account`                     bigint      NOT NULL,				  #职工号
-  `T_gentime`                     datetime    NOT NULL,	  	    #创建时间
-  `T_logintime`                   datetime    NOT NULL,	  	    #上次登录时间
-  `T_count`                       bigint      NOT NULL,         #登录次数
+  `T_account`                     varchar(20)      NOT NULL,				  #职工号
+  `T_gentime`                     varchar(20)    NOT NULL,	  	    #创建时间
+  `T_logintime`                   varchar(20)    NOT NULL,	  	    #上次登录时间
+  `T_count`                       varchar(20)      NOT NULL,         #登录次数
   `T_birthday`                    varchar(20) NOT NULL,	  	    #出生日期
   `T_sexId`                       varchar(10) NOT NULL,			    #性别
   `T_unitId`                      varchar(64) NOT NULL, 			  #科研单位

@@ -1,12 +1,11 @@
 DROP TABLE IF EXISTS `P_paper`;
 CREATE TABLE `P_paper` (
     `P_name`                        varchar(64) NOT NULL,			  #论文题目
-    `P_paperModeId`                 varchar(64) NOT NULL,           #论文类型
     `P_subjectClassId`              varchar(20) NOT NULL,		      #学科门类
     `P_publishDate`                 varchar(64) NOT NULL,	  	      #发表/出版时间
     `P_publishUnit`                 varchar(20) NOT NULL,	  	      #发表刊物/论文集
     `P_paperTypes`                  varchar(20) NOT NULL,	  	      #刊物类型
-    `P_employType`                  bigint              ,           #收录类别
+    `P_employType`                  bigint              ,             #收录类别
     `P_unitId`                      varchar(64) NOT NULL,		      #所属单位
     `P_subjectId`                   varchar(10) NOT NULL,			  #一级学科
     `P_projectSourceId`             varchar(20) NOT NULL,		      #项目来源
@@ -25,7 +24,7 @@ CREATE TABLE `P_paper` (
     `P_cn`                          varchar(64)         ,		      #CN号
     `P_isOfficialPublish`           varchar(64) NOT NULL,		      #是否正式出版
     `P_orderId`                     varchar(50)         ,             #署名顺序
-    `P_authorType`                  varchar(50)         ,             #z作者类型
+    `P_authorType`                  varchar(50)         ,             #作者类型
     `P_authorName`                  varchar(50)         ,             #成员姓名
     `P_sexId`                       varchar(50)         ,             #成员性别
     `P_authorCode`                  varchar(50)         ,             #作者职工号

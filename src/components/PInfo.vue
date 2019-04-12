@@ -10,6 +10,7 @@
 <el-card class="border-card">
 	<div slot="header" class="clearfix">
     <span>个人资料</span> 
+		<el-button size="small"  style="float:right;" @click="getinfo">获取</el-button>
 	  <el-button size="small"  style="float:right;">返回</el-button>
     <el-button size="small"  style="float:right;">重置</el-button>
     <el-button size="small"  style="float:right;">保存</el-button>
@@ -34,8 +35,8 @@
 		<el-date-picker type='date' name='bean.birthday'  id='birthday' size=12 v-model="T_birthday"  placeholder="选择日期" suffix-icon="el-icon-date"  class="Wdate" ></el-date-picker><font color=red> *</font></div></td>
 		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>性别：</td>
 		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.sexId'>	
-		<el-radio v-model="T_sexId" label="1" value="1" >男</el-radio>
-		<el-radio v-model="T_sexId" label="2" value="1">女</el-radio>
+		<el-radio v-model="T_sexId" label="男" value="男" >男</el-radio>
+		<el-radio v-model="T_sexId" label="女" value="女">女</el-radio>
 	<font color=red> *</font></div></td>
 	</tr>
 	<tr>
@@ -60,21 +61,21 @@
 	<tr>
 		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>最后学位：</td>
 		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.eduDegreeId'>
-		<el-radio v-model="T_eduDegreeId" label="1" value="10000" >名誉博士</el-radio>
-		<el-radio v-model="T_eduDegreeId" label="2" value="1" >博士</el-radio>
-		<el-radio v-model="T_eduDegreeId" label="3" value="2">硕士</el-radio><br>
-		<el-radio v-model="T_eduDegreeId" label="4" value="3" >学士</el-radio>
-		<el-radio v-model="T_eduDegreeId" label="5" value="999">其他</el-radio>
+		<el-radio v-model="T_eduDegreeId" label="名誉博士" value="名誉博士" >名誉博士</el-radio>
+		<el-radio v-model="T_eduDegreeId" label="博士" value="博士" >博士</el-radio>
+		<el-radio v-model="T_eduDegreeId" label="硕士" value="硕士">硕士</el-radio><br>
+		<el-radio v-model="T_eduDegreeId" label="学士" value="学士" >学士</el-radio>
+		<el-radio v-model="T_eduDegreeId" label="其他" value="其他">其他</el-radio>
 		<font color=red> *</font></div>
 		</td>
 		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>最后学历：</td>
 		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.eduLevelId'>	
-		<el-radio v-model="T_eduLevelId" label="1" value="10000" >博士研究生</el-radio>
-		<el-radio v-model="T_eduLevelId" label="2" value="1" >硕士研究生</el-radio>
-		<el-radio v-model="T_eduLevelId" label="3" value="2">本科生</el-radio><br>
-		<el-radio v-model="T_eduLevelId" label="4" value="3" >大专生</el-radio>
-		<el-radio v-model="T_eduLevelId" label="5" value="4" >中专生</el-radio>
-		<el-radio v-model="T_eduLevelId" label="6" value="999">其他</el-radio>
+	<el-radio v-model="T_eduLevelId" label="博士研究生" value="博士研究生" >博士研究生</el-radio>
+	<el-radio v-model="T_eduLevelId" label="硕士研究生" value="硕士研究生" >硕士研究生</el-radio>
+	<el-radio v-model="T_eduLevelId" label="本科生" value="本科生" >本科生</el-radio><br>
+	<el-radio v-model="T_eduLevelId" label="大专生" value="大专生" >大专生</el-radio>
+	<el-radio v-model="T_eduLevelId" label="中专生" value="中专生" >中专生</el-radio>
+	<el-radio v-model="T_eduLevelId" label="其他" value="其他" >其他</el-radio>
 		<font color=red> *</font></div></td>
 	</tr>
 	<tr>
@@ -101,28 +102,28 @@
 	<tr>
 		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>定职日期：</td>
 		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.dutyDate'> 
-		<el-date-picker type='date' name='bean.dutyDate'  id='dutyDate' size=12 v-model="T_dutyDate"  placeholder="选择日期" suffix-icon="el-icon-date"  class="Wdate" ></el-date-picker></div></td>
+	<el-date-picker type='date' name='bean.dutyDate'  id='dutyDate' size=12 v-model="T_dutyDate"  placeholder="选择日期" suffix-icon="el-icon-date"  class="Wdate" ></el-date-picker></div></td>
 	</tr>
 	<tr>
 		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>学术荣誉称号：</td>
 		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.honorTitleId'>	
-		<el-radio v-model="T_honorTitleId" label="1"  value='1'  >院士</el-radio>
-		<el-radio v-model="T_honorTitleId" label="2"  value='2'  >突出青年</el-radio><br>
-		<el-radio v-model="T_honorTitleId" label="3"  value='3'  >长江学者</el-radio>
-		<el-radio v-model="T_honorTitleId" label="4"  value='4'  >其他</el-radio>
+		<el-radio v-model="T_honorTitleId" label="院士"  value='院士'  >院士</el-radio>
+		<el-radio v-model="T_honorTitleId" label="突出青年"  value='突出青年'  >突出青年</el-radio><br>
+		<el-radio v-model="T_honorTitleId" label="长江学者"  value='长江学者'  >长江学者</el-radio>
+		<el-radio v-model="T_honorTitleId" label="其他"  value='其他'  >其他</el-radio>
 
 	</div></td>
 		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>学科门类：</td>
 		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.subjectClassId'>	
-		<el-radio v-model="T_subjectClassId" label="1"  value='1'  >科技类</el-radio>
-		<el-radio v-model="T_subjectClassId" label="2"  value='2'  >社科类</el-radio>
+		<el-radio v-model="T_subjectClassId" label="科技类"  value='科技类'  >科技类</el-radio>
+		<el-radio v-model="T_subjectClassId" label="社科类"  value='社科类'  >社科类</el-radio>
 	<font color=red> *</font></div></td>
 	</tr>
 	<tr>
 		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>是否统计：</td>
 		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.isStat'>	
-		<el-radio v-model="T_isStat" label="1"  value='0'  >否</el-radio>
-		<el-radio v-model="T_isStat" label="2"  value='1'  >是</el-radio>
+		<el-radio v-model="T_isStat" label="否"  value='否'  >否</el-radio>
+		<el-radio v-model="T_isStat" label="是"  value='是'  >是</el-radio>
 	<font color=red> *</font></div></td>
 		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>一级学科：</td>
 		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.subjectId'>
@@ -204,7 +205,7 @@
  		<tr>
 		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>英文名：</td>
 		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.nameEn'> 
-		<el-input type='text' name='bean.nameEn'  id='nameEn' size='0'   maxLength = '40' ></el-input></div></td>
+		<el-input type='text' v-model="T_nameEn" name='bean.nameEn'  id='nameEn' size='0'   maxLength = '40' ></el-input></div></td>
 		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>政治面貌：</td>
 		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.polityId'>
 			<el-select v-model="T_polityId"  name='bean.polityId' placeholder="请选择">
@@ -234,15 +235,15 @@
 	<tr>
 		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>教师类别：</td>
 		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.teacherType'>
-		<el-radio v-model="T_teacherType" label="1" value='0'  >教学</el-radio>
-		<el-radio v-model="T_teacherType" label="2" value='1'  >管理</el-radio>
+		<el-radio v-model="T_teacherType" label="教学" value='教学'  >教学</el-radio>
+		<el-radio v-model="T_teacherType" label="管理" value='管理'  >管理</el-radio>
 
 	</div></td>
 		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>导师类型：</td>
 		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.tutorTypeId'>	
-		<el-radio v-model="T_tutorTypeId" label="1" value='1'  >博导</el-radio>
-		<el-radio v-model="T_tutorTypeId" label="2" value='2'  >硕导</el-radio>
-		<el-radio v-model="T_tutorTypeId" label="3" value='3'  >非导师</el-radio>
+		<el-radio v-model="T_tutorTypeId" label="博导" value='博导'  >博导</el-radio>
+		<el-radio v-model="T_tutorTypeId" label="硕导" value='硕导'  >硕导</el-radio>
+		<el-radio v-model="T_tutorTypeId" label="非导师" value='非导师'  >非导师</el-radio>
 	</div></td>
 	</tr>
 	<tr>
@@ -251,7 +252,7 @@
 		<el-date-picker type='date' name='bean.employDate'  id='employDate' size=12 v-model="T_employDate"  placeholder="选择日期" suffix-icon="el-icon-date"  class="Wdate" ></el-date-picker></div></td>
 		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>行政职务：</td>
 		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.duty'> 
-		<el-input type='text' name='bean.duty'  id='duty' size='0' maxLength = '128' ></el-input><font color=red> *</font></div></td>
+		<el-input type='text' v-model="T_duty" name='bean.duty'  id='duty' size='0' maxLength = '128' ></el-input><font color=red> *</font></div></td>
 	</tr>
 	<tr>
 		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>国籍：</td>
@@ -274,23 +275,23 @@
 	</tr>
 	<tr>
 		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>家庭住址：</td>
-		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.address'> <el-input type='text' name='bean.address'  id='address' size='0'    maxLength = '256' ></el-input></div></td>
+		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.address'> <el-input type='text' v-model="T_address" name='bean.address'  id='address' size='0'    maxLength = '256' ></el-input></div></td>
 		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>邮政编码：</td>
-		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.postalCode'> <el-input type='text' name='bean.postalCode'  id='postalCode' size=6    maxLength = '32'></el-input></div></td>
+		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.postalCode'> <el-input type='text' v-model="T_postalCode" name='bean.postalCode'  id='postalCode' size=6    maxLength = '32'></el-input></div></td>
 	</tr>
 	<tr>
 		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>住宅电话：</td>
-		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.telHome'> <el-input type='text' name='bean.telHome'  id='telHome' size='0'    maxLength = '128'></el-input></div></td>
+		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.telHome'> <el-input type='text' v-model="T_telHome" name='bean.telHome'  id='telHome' size='0'    maxLength = '128'></el-input></div></td>
 		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>办公传真：</td>
-		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.faxOffice'> <el-input type='text' name='bean.faxOffice'  id='faxOffice' size='0'    maxLength = '32'></el-input></div></td>
+		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.faxOffice'> <el-input type='text' v-model="T_faxOffice" name='bean.faxOffice'  id='faxOffice' size='0'    maxLength = '32'></el-input></div></td>
 	</tr>
 	<tr>
 		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>个人网址：</td>
-		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.personalWebSite'> <el-input type='text' name='bean.personalWebSite'  id='personalWebSite' size='0'    maxLength = '128' ></el-input></div></td>
+		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.personalWebSite'> <el-input type='text' v-model="T_personalWebSite" name='bean.personalWebSite'  id='personalWebSite' size='0'    maxLength = '128' ></el-input></div></td>
 		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>在职情况：</td>
 		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.personState'>	
-		<el-radio v-model="T_personState" name='bean.personState' label="1" value='1' >在职</el-radio>
-		<el-radio v-model="T_personState" name='bean.personState' label="2" value='2'  >退休</el-radio>
+		<el-radio v-model="T_personState" name='bean.personState' label="在职" value='在职' >在职</el-radio>
+		<el-radio v-model="T_personState" name='bean.personState' label="退休" value='退休'  >退休</el-radio>
 
 	</div></td>
 	</tr>
@@ -319,18 +320,18 @@
 	<tr>
 		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>第一外语程度：</td>
 		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.languageLevel1Id'>	
-		<el-radio v-model="T_languageLevel1Id" name='bean.languageLevel1Id' label="1" value='1'  >精通</el-radio>
-		<el-radio v-model="T_languageLevel1Id" name='bean.languageLevel1Id' label="2" value='2'  >熟练</el-radio><br>
-		<el-radio v-model="T_languageLevel1Id" name='bean.languageLevel1Id' label="3" value='3'  >良好</el-radio>
-		<el-radio v-model="T_languageLevel1Id" name='bean.languageLevel1Id' label="4" value='4'  >一般</el-radio>
+		<el-radio v-model="T_languageLevel1Id" name='bean.languageLevel1Id' label="精通" value='精通'  >精通</el-radio>
+		<el-radio v-model="T_languageLevel1Id" name='bean.languageLevel1Id' label="熟练" value='熟练'  >熟练</el-radio><br>
+		<el-radio v-model="T_languageLevel1Id" name='bean.languageLevel1Id' label="良好" value='良好'  >良好</el-radio>
+		<el-radio v-model="T_languageLevel1Id" name='bean.languageLevel1Id' label="一般" value='一般'  >一般</el-radio>
 
 	</div></td>
 		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>第二外语程度：</td>
 		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.languageLevel2Id'>	
-		<el-radio v-model="T_languageLevel2Id" name='bean.languageLevel2Id' label="1" value='1'  >精通</el-radio>
-		<el-radio v-model="T_languageLevel2Id" name='bean.languageLevel2Id' label="2" value='2'  >熟练</el-radio><br>
-		<el-radio v-model="T_languageLevel2Id" name='bean.languageLevel2Id' label="3" value='3'  >良好</el-radio>
-		<el-radio v-model="T_languageLevel2Id" name='bean.languageLevel2Id' label="4" value='4'  >一般</el-radio>
+		<el-radio v-model="T_languageLevel2Id" name='bean.languageLevel2Id' label="精通" value='精通'  >精通</el-radio>
+		<el-radio v-model="T_languageLevel2Id" name='bean.languageLevel2Id' label="熟练" value='熟练'  >熟练</el-radio><br>
+		<el-radio v-model="T_languageLevel2Id" name='bean.languageLevel2Id' label="良好" value='良好'  >良好</el-radio>
+		<el-radio v-model="T_languageLevel2Id" name='bean.languageLevel2Id' label="一般" value='一般'  >一般</el-radio>
 	</div></td>
 	</tr>
 	<tr>
@@ -364,136 +365,137 @@
 </template>
 
 <script>
+		import API from '../api/api_test';
   export default {
     data() {  
       return {
-		  activeIndex:'1',
-          activeIndex2:'1',
-		  T_name:'王贺',
-		  T_account:'2008024	',
-		  T_birthday:'1978-09-12',
-		  T_sexId:'1',
+		  activeIndex:'',
+      ctiveIndex2:'',
+		  T_name:'',
+		  T_account:'',
+		  T_birthday:'',
+		  T_sexId:'',
 		  T_unitId:'',
 		  T_unitIds:[
-			{ value:'',label:'--请选择--'
-			},{ value:'教育学院(师范学院)',label:'教育学院(师范学院)'
-			},{ value:'经济与管理学院',label:'经济与管理学院'
-			},{ value:'生态环境与建筑工程学院',label:'生态环境与建筑工程学院'
-			},{ value:'文学与传媒学院',label:'文学与传媒学院'
-			},{ value:'城市学院',label:'城市学院'
-			},{ value:'电子工程与智能化学院',label:'电子工程与智能化学院'
-			},{ value:'法律与社会工作学院（知识产权学院）',label:'法律与社会工作学院（知识产权学院）'
-			},{ value:'工程技术研究院',label:'工程技术研究院'
-			},{ value:'化学工程与能源技术学院',label:'化学工程与能源技术学院'
-			},{ value:'机械工程学院',label:'机械工程学院'
-			},{ value:'计算机与网络安全学院',label:'计算机与网络安全学院'
-			},{ value:'继续教育学院',label:'继续教育学院'
-			},{ value:'科技产业公司',label:'科技产业公司'
-			},{ value:'科技创新研究院',label:'科技创新研究院'
-			},{ value:'离职人员',label:'离职人员'
-			},{ value:'马克思主义学院',label:'马克思主义学院'
-			},{ value:'清洁生产科技中心',label:'清洁生产科技中心'
-			},{ value:'社会发展研究院',label:'社会发展研究院'
-			},{ value:'体育中心（挂靠体育系）',label:'体育中心（挂靠体育系）'
-			},{ value:'图书馆',label:'图书馆'
-			},{ value:'退休部门',label:'退休部门'
-			},{ value:'莞城校区管委会',label:'莞城校区管委会'
-			},{ value:'网络空间安全学院',label:'网络空间安全学院'
-			},{ value:'网络与教育技术中心',label:'网络与教育技术中心'
-			},{ value:'学报',label:'学报'
-			},{ value:'学术交流中心',label:'学术交流中心'
-			},{ value:'粤台产业科技学院',label:'粤台产业科技学院'
-			},{ value:'知识产权中心（挂靠政法学院）',label:'知识产权中心（挂靠政法学院）'
-			},{ value:'中法联合学院',label:'中法联合学院'
-			},{ value:'组织部',label:'组织部'
-			},{ value:'保卫处',label:'保卫处'
-			},{ value:'财务处',label:'财务处'
-			},{ value:'发展规划处',label:'发展规划处'
-			},{ value:'高教研究与评估中心',label:'高教研究与评估中心'
-			},{ value:'工会',label:'工会'
-			},{ value:'国际交流处',label:'国际交流处'
-			},{ value:'后勤集团',label:'后勤集团'
-			},{ value:'教师发展中心',label:'教师发展中心'
-			},{ value:'教务处',label:'教务处'
-			},{ value:'科研处',label:'科研处'
-			},{ value:'人事处',label:'人事处'
-			},{ value:'人事代理服务处',label:'人事代理服务处'
-			},{ value:'审计监察处',label:'审计监察处'
-			},{ value:'团委',label:'团委'
-			},{ value:'校领导',label:'校领导'
-			},{ value:'协同发展创新办公室',label:'协同发展创新办公室'
-			},{ value:'宣传部',label:'宣传部'
-			},{ value:'学科建设办',label:'学科建设办'
-			},{ value:'学生处',label:'学生处'
-			},{ value:'学校办公室',label:'学校办公室'
-			},{ value:'资产后勤管理处',label:'资产后勤管理处'
-			},{ value:'广东高校网络与信息安全工程技术开发中心',label:'广东高校网络与信息安全工程技术开发中心'
-			},{ value:'广东高校网络与信息安全工程开发中心',label:'广东高校网络与信息安全工程开发中心'
-			},{ value:'广东省科协海智计划东莞理工学院',label:'广东省科协海智计划东莞理工学院'
-			},{ value:'广东省社会科学研究基地--东莞理工学院质量与品牌发展研究中心',label:'广东省社会科学研究基地--东莞理工学院质量与品牌发展研究中心'
-			},{ value:'广东省无线传感器网络系统及应用工程技术研究中心',label:'广东省无线传感器网络系统及应用工程技术研究中心'
-			},{ value:'新时代价值与文化研究中心',label:'新时代价值与文化研究中心'
-			},{ value:'生态环境工程技术研发中心',label:'生态环境工程技术研发中心'
-			}],
-		  T_eduDegreeId:'1',
-		  T_eduLevelId:'1',
+				{ value:'',label:'--请选择--'
+				},{ value:'教育学院(师范学院)',label:'教育学院(师范学院)'
+				},{ value:'经济与管理学院',label:'经济与管理学院'
+				},{ value:'生态环境与建筑工程学院',label:'生态环境与建筑工程学院'
+				},{ value:'文学与传媒学院',label:'文学与传媒学院'
+				},{ value:'城市学院',label:'城市学院'
+				},{ value:'电子工程与智能化学院',label:'电子工程与智能化学院'
+				},{ value:'法律与社会工作学院（知识产权学院）',label:'法律与社会工作学院（知识产权学院）'
+				},{ value:'工程技术研究院',label:'工程技术研究院'
+				},{ value:'化学工程与能源技术学院',label:'化学工程与能源技术学院'
+				},{ value:'机械工程学院',label:'机械工程学院'
+				},{ value:'计算机与网络安全学院',label:'计算机与网络安全学院'
+				},{ value:'继续教育学院',label:'继续教育学院'
+				},{ value:'科技产业公司',label:'科技产业公司'
+				},{ value:'科技创新研究院',label:'科技创新研究院'
+				},{ value:'离职人员',label:'离职人员'
+				},{ value:'马克思主义学院',label:'马克思主义学院'
+				},{ value:'清洁生产科技中心',label:'清洁生产科技中心'
+				},{ value:'社会发展研究院',label:'社会发展研究院'
+				},{ value:'体育中心（挂靠体育系）',label:'体育中心（挂靠体育系）'
+				},{ value:'图书馆',label:'图书馆'
+				},{ value:'退休部门',label:'退休部门'
+				},{ value:'莞城校区管委会',label:'莞城校区管委会'
+				},{ value:'网络空间安全学院',label:'网络空间安全学院'
+				},{ value:'网络与教育技术中心',label:'网络与教育技术中心'
+				},{ value:'学报',label:'学报'
+				},{ value:'学术交流中心',label:'学术交流中心'
+				},{ value:'粤台产业科技学院',label:'粤台产业科技学院'
+				},{ value:'知识产权中心（挂靠政法学院）',label:'知识产权中心（挂靠政法学院）'
+				},{ value:'中法联合学院',label:'中法联合学院'
+				},{ value:'组织部',label:'组织部'
+				},{ value:'保卫处',label:'保卫处'
+				},{ value:'财务处',label:'财务处'
+				},{ value:'发展规划处',label:'发展规划处'
+				},{ value:'高教研究与评估中心',label:'高教研究与评估中心'
+				},{ value:'工会',label:'工会'
+				},{ value:'国际交流处',label:'国际交流处'
+				},{ value:'后勤集团',label:'后勤集团'
+				},{ value:'教师发展中心',label:'教师发展中心'
+				},{ value:'教务处',label:'教务处'
+				},{ value:'科研处',label:'科研处'
+				},{ value:'人事处',label:'人事处'
+				},{ value:'人事代理服务处',label:'人事代理服务处'
+				},{ value:'审计监察处',label:'审计监察处'
+				},{ value:'团委',label:'团委'
+				},{ value:'校领导',label:'校领导'
+				},{ value:'协同发展创新办公室',label:'协同发展创新办公室'
+				},{ value:'宣传部',label:'宣传部'
+				},{ value:'学科建设办',label:'学科建设办'
+				},{ value:'学生处',label:'学生处'
+				},{ value:'学校办公室',label:'学校办公室'
+				},{ value:'资产后勤管理处',label:'资产后勤管理处'
+				},{ value:'广东高校网络与信息安全工程技术开发中心',label:'广东高校网络与信息安全工程技术开发中心'
+				},{ value:'广东高校网络与信息安全工程开发中心',label:'广东高校网络与信息安全工程开发中心'
+				},{ value:'广东省科协海智计划东莞理工学院',label:'广东省科协海智计划东莞理工学院'
+				},{ value:'广东省社会科学研究基地--东莞理工学院质量与品牌发展研究中心',label:'广东省社会科学研究基地--东莞理工学院质量与品牌发展研究中心'
+				},{ value:'广东省无线传感器网络系统及应用工程技术研究中心',label:'广东省无线传感器网络系统及应用工程技术研究中心'
+				},{ value:'新时代价值与文化研究中心',label:'新时代价值与文化研究中心'
+				},{ value:'生态环境工程技术研发中心',label:'生态环境工程技术研发中心'
+				}],
+		  T_eduDegreeId:'',
+		  T_eduLevelId:'',
 		  T_titleId:'',
 		  T_titleIds:[
-			{ value:'',label:'--请选择--'
-			},{ value:'教授',label:'教授'
-			},{ value:'团委',label:'团委'
-			},{ value:'副教授',label:'副教授'
-			},{ value:'助教',label:'助教'
-			},{ value:'初级',label:'初级'
-			},{ value:'其他人员',label:'其他人员'
-			},{ value:'高级讲师',label:'高级讲师'
-			},{ value:'讲师',label:'讲师'
-			},{ value:'助理讲师',label:'助理讲师'
-			},{ value:'教员',label:'教员'
-			},{ value:'高级实习指导教师',label:'高级实习指导教师'
-			},{ value:'一级实习指导教师',label:'一级实习指导教师'
-			},{ value:'二级实习指导教师',label:'二级实习指导教师'
-			},{ value:'三级实习指导教师',label:'三级实习指导教师'
-			},{ value:'中学高级教师',label:'中学高级教师'
-			},{ value:'中学一级教师',label:'中学一级教师'
-			},{ value:'中学二级教师',label:'中学二级教师'
-			},{ value:'中学三级教师',label:'中学三级教师'
-			},{ value:'研究员',label:'研究员'
-			},{ value:'副研究员',label:'副研究员'
-			},{ value:'助理研究员',label:'助理研究员'
-			},{ value:'研究实习员',label:'研究实习员'
-			},{ value:'高级实验师',label:'高级实验师'
-			},{ value:'实验员',label:'实验员'
-			},{ value:'高级工程师',label:'高级工程师'
-			},{ value:'工程师',label:'工程师'
-			},{ value:'助理工程师',label:'助理工程师'
-			},{ value:'技术员',label:'技术员'
-			},{ value:'高级经济师',label:'高级经济师'
-			},{ value:'经济师',label:'经济师'
-			},{ value:'助理经济师',label:'助理经济师'
-			},{ value:'经济员',label:'经济员'
-			},{ value:'高级会计师',label:'高级会计师'
-			},{ value:'会计师',label:'会计师'
-			},{ value:'助理会计师',label:'助理会计师'
-			},{ value:'会计员',label:'会计员'
-			},{ value:'高级统计师',label:'高级统计师'
-			},{ value:'统计师',label:'统计师'
-			},{ value:'助理统计师',label:'助理统计师'
-			},{ value:'统计员',label:'统计员'
-			},{ value:'编审',label:'编审'
-			},{ value:'副编审',label:'副编审'
-			},{ value:'编辑',label:'编辑'
-			},{ value:'助理编辑',label:'助理编辑'
-			},{ value:'研究馆员',label:'研究馆员'
-			},{ value:'副研究馆员',label:'副研究馆员'
-			},{ value:'馆员',label:'馆员'
-			},{ value:'助理馆员',label:'助理馆员'
-			},{ value:'管理员',label:'管理员'
-			},{ value:'高级政工师',label:'高级政工师'
-			},{ value:'政工师',label:'政工师'
-			},{ value:'助理政工师',label:'助理政工师'
-			},{ value:'政工员',label:'政工员'
-			}],
+				{ value:'',label:'--请选择--'
+				},{ value:'教授',label:'教授'
+				},{ value:'团委',label:'团委'
+				},{ value:'副教授',label:'副教授'
+				},{ value:'助教',label:'助教'
+				},{ value:'初级',label:'初级'
+				},{ value:'其他人员',label:'其他人员'
+				},{ value:'高级讲师',label:'高级讲师'
+				},{ value:'讲师',label:'讲师'
+				},{ value:'助理讲师',label:'助理讲师'
+				},{ value:'教员',label:'教员'
+				},{ value:'高级实习指导教师',label:'高级实习指导教师'
+				},{ value:'一级实习指导教师',label:'一级实习指导教师'
+				},{ value:'二级实习指导教师',label:'二级实习指导教师'
+				},{ value:'三级实习指导教师',label:'三级实习指导教师'
+				},{ value:'中学高级教师',label:'中学高级教师'
+				},{ value:'中学一级教师',label:'中学一级教师'
+				},{ value:'中学二级教师',label:'中学二级教师'
+				},{ value:'中学三级教师',label:'中学三级教师'
+				},{ value:'研究员',label:'研究员'
+				},{ value:'副研究员',label:'副研究员'
+				},{ value:'助理研究员',label:'助理研究员'
+				},{ value:'研究实习员',label:'研究实习员'
+				},{ value:'高级实验师',label:'高级实验师'
+				},{ value:'实验员',label:'实验员'
+				},{ value:'高级工程师',label:'高级工程师'
+				},{ value:'工程师',label:'工程师'
+				},{ value:'助理工程师',label:'助理工程师'
+				},{ value:'技术员',label:'技术员'
+				},{ value:'高级经济师',label:'高级经济师'
+				},{ value:'经济师',label:'经济师'
+				},{ value:'助理经济师',label:'助理经济师'
+				},{ value:'经济员',label:'经济员'
+				},{ value:'高级会计师',label:'高级会计师'
+				},{ value:'会计师',label:'会计师'
+				},{ value:'助理会计师',label:'助理会计师'
+				},{ value:'会计员',label:'会计员'
+				},{ value:'高级统计师',label:'高级统计师'
+				},{ value:'统计师',label:'统计师'
+				},{ value:'助理统计师',label:'助理统计师'
+				},{ value:'统计员',label:'统计员'
+				},{ value:'编审',label:'编审'
+				},{ value:'副编审',label:'副编审'
+				},{ value:'编辑',label:'编辑'
+				},{ value:'助理编辑',label:'助理编辑'
+				},{ value:'研究馆员',label:'研究馆员'
+				},{ value:'副研究馆员',label:'副研究馆员'
+				},{ value:'馆员',label:'馆员'
+				},{ value:'助理馆员',label:'助理馆员'
+				},{ value:'管理员',label:'管理员'
+				},{ value:'高级政工师',label:'高级政工师'
+				},{ value:'政工师',label:'政工师'
+				},{ value:'助理政工师',label:'助理政工师'
+				},{ value:'政工员',label:'政工员'
+				}],
 		 T_titleIdss:[
 			{ value: '高等学校教师',label: '高等学校教师',
 			  children: [{  value: '教授',label: '教授'
@@ -767,36 +769,74 @@
       handleSelect(key, keyPath) {
         console.log(key, keyPath);
       },
-      //新增
-      addPinfo: function () {
-        let that = this;
-        this.$refs.addForm.validate((valid) => {
-          if (valid) {
-            that.loading = true;
-            let para = Object.assign({}, this.addForm);
-            para.publishAt = (!para.pubilshAt || para.publishAt === '') ? '' : util.formatDate.format(new Date(para.publishAt), 'yyyy-MM-dd');
-            API.add(para).then(function (result) {
-              that.loading = false;
-              if (result && parseInt(result.errcode) === 0) {
-                that.$message.success({showClose: true, message: '新增成功', duration: 2000});
-                that.$refs['addForm'].resetFields();
-                that.addFormVisible = false;
-                that.search();
-              } else {
-                that.$message.error({showClose: true, message: '修改失败', duration: 2000});
-              }
-            }, function (err) {
-              that.loading = false;
-              that.$message.error({showClose: true, message: err.toString(), duration: 2000});
-            }).catch(function (error) {
-              that.loading = false;
-              console.log(error);
-              that.$message.error({showClose: true, message: '请求出现异常', duration: 2000});
-            });
+			//获取默认信息
+			getinfo(){
+				API.test().then((result)=>{
+					// const that = this;
+					console.log(result[0]);
+					console.log(result[0].T_name);
+					// var cc=result[0].T_name;
+					// this.T_name='cc';
+					this.T_name=result[0].T_name;
+					this.T_account=result[0].T_account;
+					this.T_birthday=result[0].T_birthday;
+					this.T_sexId=result[0].T_sexId;
+					this.T_unitId=result[0].T_unitId;
+					this.T_divisionId=result[0].T_divisionId;
+					this.T_eduDegreeId=result[0].T_eduDegreeId;
+					this.T_eduLevelId=result[0].T_eduLevelId;
+					this.T_titleId=Array.from(result[0].T_titleId);
+					this.T_positionType=result[0].T_positionType;
+					this.T_dutyDate=result[0].T_dutyDate;
+					this.T_honorTitleId=result[0].T_honorTitleId;
+					this.T_subjectClassId=result[0].T_subjectClassId;
+					this.T_isStat=result[0].T_isStat;
+					this.T_subjectId=result[0].T_subjectId;
+					this.T_subject2Id=result[0].T_subject2Id;
+					this.T_subject3Id=result[0].T_subject3Id;
+					this.T_hrUnitId=result[0].T_hrUnitId;
+					this.T_mobile=result[0].T_mobile;
+					this.T_telOffice=result[0].T_telOffice;
+					this.T_email=result[0].T_email;
+					this.T_qq=result[0].T_qq;
+					this.T_researchField=result[0].T_researchField;
+					this.T_standby10=result[0].T_standby10;
+					this.T_nameEn=result[0].T_nameEn;
+					this.T_polityId=result[0].T_polityId;
+					this.T_subjectCorrelationId=result[0].T_subjectCorrelationId;
+					this.T_idCard=result[0].T_idCard;
+					this.T_teacherType=result[0].T_teacherType;
+					this.T_tutorTypeId=result[0].T_tutorTypeId;
+					this.T_employDate=result[0].T_employDate;
+					this.T_duty=result[0].T_duty;
+					this.T_nationalityId=result[0].T_nationalityId;
+					this.T_nationId=result[0].T_nationId;
+					this.T_address=result[0].T_address;
+					this.T_postalCode=result[0].T_postalCode;
+					this.T_telHome=result[0].T_telHome;
+					this.T_faxOffice=result[0].T_faxOffice;
+					this.T_personalWebSite=result[0].T_personalWebSite;
+					this.T_personState=result[0].T_personState;
+					this.T_language1Id=result[0].T_language1Id;
+					this.T_language2Id=result[0].T_language2Id;
+					this.T_languageLevel1Id=result[0].T_languageLevel1Id;
+					this.T_languageLevel2Id=result[0].T_languageLevel2Id;
+					this.T_graduateSchool=result[0].T_graduateSchool;
+					this.T_learning=result[0].T_learning;
+					this.T_experienceAbroad=result[0].T_experienceAbroad;
+					this.T_parttime=result[0].T_parttime;
+					this.T_learnSpecialty=result[0].T_learnSpecialty;
 
-          }
-        });
-      },
+
+
+
+
+
+
+
+
+				})
+			}
     }
   }
 </script>
@@ -817,8 +857,6 @@ tr{
 
 </style>
 
-
-	
 	
 	
 	
