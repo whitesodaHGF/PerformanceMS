@@ -8,22 +8,23 @@
     <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
-      :current-page.sync="tableData3.currentPage3"
+      :current-page.sync="Unitlist.currentPage3"
       :page-size="100"
       layout="prev, pager, next, jumper"
       :total="1000">
     </el-pagination>
     </el-col>
-  <el-col :span="12" push=7 >
-    <router-link to="/ResearchUnit" ><el-button size="small">新增</el-button></router-link>
-    <router-link to="/UnitSearch" ><el-button size="small">查询</el-button></router-link>
-    <el-button size="small">导出</el-button>
+  <el-col :span="12">
+    <el-button size="small" @click="getexcel" style="float:right;">导出</el-button>
+    <router-link to="/UnitSearch" ><el-button size="small" style="float:right;">查询</el-button></router-link>
+    <router-link to="/ResearchUnit" ><el-button size="small" style="float:right;" >新增</el-button></router-link>
   </el-col>
 </el-row>
   
     <el-table
+    class="table"
     ref="multipleTable"
-    :data="tableData3"
+    :data="Unitlist"
     tooltip-effect="dark"
     height="700"
     border
@@ -31,14 +32,14 @@
     @selection-change="handleSelectionChange">
 
     <el-table-column type="selection" prop="All" label="全选" ></el-table-column>
-    <el-table-column  prop="Unitcode" label="机构编号" width=50 ></el-table-column>
-    <el-table-column  prop="UnitcodeName" label="机构名称" width=400></el-table-column>
-    <el-table-column  prop="chargerName" label="负责人" ></el-table-column>
-    <el-table-column  prop="UnitLevel" label="机构级别" ></el-table-column>
-    <el-table-column  prop="Unitstaff" label="机构人员" ></el-table-column>
-    <el-table-column  prop="Project" label="科研项目" ></el-table-column>
-    <el-table-column  prop="Researchresult" label="科研成果"></el-table-column>
-    <el-table-column  prop="Researchaward" label="科研获奖"></el-table-column>
+    <el-table-column  prop="R_code" label="机构编号" width=50 ></el-table-column>
+    <el-table-column  prop="R_name" label="机构名称" width=400></el-table-column>
+    <el-table-column  prop="R_charger" label="负责人" ></el-table-column>
+    <el-table-column  prop="R_levelId" label="机构级别" ></el-table-column>
+    <el-table-column  prop="R_Unitstaff" label="机构人员" ></el-table-column>
+    <el-table-column  prop="R_Project" label="科研项目" ></el-table-column>
+    <el-table-column  prop="R_Researchresult" label="科研成果"></el-table-column>
+    <el-table-column  prop="R_Researchaward" label="科研获奖"></el-table-column>
     <el-table-column  prop="operte" label="操作" > <template slot-scope="scope"><el-button
           size="mini"
           type="danger"
@@ -66,43 +67,13 @@
   }
 </style>
 <script>
+import API from '../api/api_test';
+import FileSaver from "file-saver";
+import XLSX from "xlsx";
   export default {
     data() {
       return {
-        tableData3: [
-          { 
-            All:'', Unitcode:'1', UnitcodeName:'广东省制造过程智能控制与优化工程技术研究中心', chargerName:'XXX', UnitLevel:'省部级', 
-            Unitstaff:'0', Project:'0', Researchresult:'0', Researchaward:'0', operte:'信息'
-          },
-          { 
-            All:'', Unitcode:'2', UnitcodeName:'智能无线通信重点实验室', chargerName:'XXX', UnitLevel:'	地厅级', 
-            Unitstaff:'0', Project:'0', Researchresult:'0', Researchaward:'0', operte:'删除'
-          },
-          { 
-            All:'', Unitcode:'3', UnitcodeName:'校企共建新能源及智能配电网实验室', chargerName:'XXX', UnitLevel:'学校级', 
-            Unitstaff:'0', Project:'0', Researchresult:'0', Researchaward:'0', operte:'删除'
-          },
-          { 
-            All:'', Unitcode:'4', UnitcodeName:'广东省太赫兹检测与通信工程技术研究中心', chargerName:'XXX', UnitLevel:'省部级', 
-            Unitstaff:'0', Project:'0', Researchresult:'0', Researchaward:'0', operte:'删除'
-          },
-          { 
-            All:'', Unitcode:'5', UnitcodeName:'新能源与智能配用电实验室', chargerName:'XXX', UnitLevel:'地厅级', 
-            Unitstaff:'0', Project:'0', Researchresult:'0', Researchaward:'0', operte:'删除'
-          },
-          { 
-            All:'', Unitcode:'6', UnitcodeName:'广东省嵌入式智能工业检测工程技术研究中心', chargerName:'XXX', UnitLevel:'地厅级', 
-            Unitstaff:'0', Project:'0', Researchresult:'0', Researchaward:'0', operte:'删除'
-          },
-          { 
-            All:'', Unitcode:'7', UnitcodeName:'广东省智能制造系统健康监测维护工程技术研究中心', chargerName:'XXX', UnitLevel:'省部级', 
-            Unitstaff:'0', Project:'0', Researchresult:'0', Researchaward:'0', operte:'删除'
-          },
-          { 
-            All:'', Unitcode:'8', UnitcodeName:'广东省高性能轻合金及其成型工程技术研究中心', chargerName:'XXX', UnitLevel:'省部级', 
-            Unitstaff:'0', Project:'0', Researchresult:'0', Researchaward:'0', operte:'删除'
-          },
-        ]
+        Unitlist:[],
       }
     },
       methods: {
@@ -129,7 +100,41 @@
       },
       handleDelete(index, row) {
         console.log(index, row);
-      }
-    }
+      },
+      getexcel(){
+					// 设置当前日期
+				let time = new Date();
+				let year = time.getFullYear();
+				let month = time.getMonth() + 1;
+				let day = time.getDate();
+				let name = year + "" + month + "" + day;
+				// console.log(name)
+				/* generate workbook object from table */
+				//  .table要导出的是哪一个表格
+				var wb = XLSX.utils.table_to_book(document.querySelector(".table"));
+				/* get binary string as output */
+				var wbout = XLSX.write(wb, {
+					bookType: "xlsx",
+					bookSST: true,
+					type: "array"
+				});
+				try {
+					//  name+'.xlsx'表示导出的excel表格名字
+					FileSaver.saveAs(
+						new Blob([wbout], { type: "application/octet-stream" }),
+						name + ".xlsx"
+					);
+				} catch (e) {
+					if (typeof console !== "undefined") console.log(e, wbout);
+				}
+				return wbout;
+				},
+    },
+    created:function() {
+      API.getUnitinfo().then((result)=>{
+          console.log(result);
+          this.Unitlist=result;
+				})
+    },
   }
 </script>

@@ -10,12 +10,16 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "ajv": "^6.10.0",
     "axios": "^0.18.0",
+    "cors": "^2.8.5",
     "element-ui": "^2.4.11",
+    "file-saver": "^2.0.1",
     "vue": "^2.5.2",
     "vue-axios": "^2.1.4",
     "vue-resource": "^1.5.1",
-    "vue-router": "^3.0.2"
+    "vue-router": "^3.0.2",
+    "xlsx": "^0.14.3"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

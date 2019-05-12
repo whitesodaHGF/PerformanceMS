@@ -1,11 +1,14 @@
 var express = require('express');
 var router = express.Router();
-var testRouter = {};
-var testController = require('../../controllers/test');
+var addRouter = {};
+
+let addController=require('../../controllers/add');
 
 //先检查登录
-router.use(testController.T);
+// router.use(testController.T);
+router.post('/',addController.ADD);
 
-testRouter.router = router;
-module.exports = testRouter;
+addRouter.router = router;
+module.exports = addRouter;
 
+ 

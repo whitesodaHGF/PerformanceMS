@@ -1,7 +1,6 @@
 /* eslint-disable */
 <template>
   <div id="app">
-
     <el-container>
       <el-header>
         <vheader></vheader>   
@@ -131,6 +130,8 @@
 <script>
 import NavMenu from './components/NavMenu.vue'
 import Header from './components/Header.vue'
+import FileSaver from "file-saver";
+import XLSX from "xlsx"
 
 export default {
   name: 'App',

@@ -5,7 +5,7 @@ CREATE TABLE `R_researchUnit` (
   `R_charger`                     varchar(20)         ,		    #负责人
   `R_upUnitId`                    varchar(64)         ,	  	  #挂靠单位
   `R_subjectClassId`              varchar(20) NOT NULL,	  	  #学科门类
-  `R_staTypeId`                   bigint      NOT NULL,       #是否统计
+  `R_staTypeId`                   varchar(20) NOT NULL,       #是否统计
   `R_subjectId`                   varchar(64) NOT NULL,		    #一级学科
   `R_levelId`                     varchar(10)         ,			  #机构级别
   `R_telOffice`                   varchar(20)         ,		    #办公电话

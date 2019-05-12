@@ -1,34 +1,34 @@
 <template>
-<form name="researchUnitForm" method="post" action="/business/unit/researchUnit.do" enctype="multipart/form-data">
-
+<el-form ref="Unitform" :model="Unitform[0]" name="researchUnitForm" method="post" action="/business/unit/researchUnit.do" enctype="multipart/form-data">
 <div class="mainbg">
-
 <el-card class="box-card">
 	<div slot="header" class="clearfix">
     <span >研究机构新增</span>
-    <el-button size="small" style="float:right;">返回</el-button>
-    <el-button size="small" style="float:right;">重置</el-button>
-    <el-button size="small" style="float:right;" >保存</el-button>
+		<el-button size="small"  style="float:right;" @click="getexcel">导出</el-button>
+    <el-button size="small"  style="float:right;" @click="getUnitinfo">获取</el-button>
+	  <router-link to="/Notice"><el-button size="small"  style="float:right;">返回</el-button></router-link>
+    <el-button size="small"  style="float:right;" @click="reload" >重置</el-button>
+    <el-button size="small"  style="float:right;" @click="saveUnitinfo">保存</el-button>
 </div>
 <table id="table" cellspacing="0" cellpadding="0" align="center">
 				
 	<tr>
 		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>机构名称：</td>
 		<td class='list' colspan=3 rowspan=1><div id='researchUnit.name'> 
-		<el-input v-model="R_name" type='text' name='bean.name'  id='name' size='50' maxLength = '100' ></el-input><font color=red> *</font></div></td>
+		<el-input v-model="Unitform[0].R_name" type='text' name='bean.name'  id='name' size='50' maxLength = '100' ></el-input><font color=red> *</font></div></td>
 	</tr>
 	<tr>
 		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>机构编号：</td>
 		<td class='list' colspan=1 rowspan=1 width='35%'><div id='researchUnit.code'> 
-		<el-input v-model="R_code" type='text' name='bean.code'  id='code' size='0' maxLength = '64' ></el-input><font color=red> *</font></div></td>
+		<el-input v-model="Unitform[0].R_code" type='text' name='bean.code'  id='code' size='0' maxLength = '64' ></el-input><font color=red> *</font></div></td>
 		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>负责人：</td>
 		<td class='list' colspan=1 rowspan=1 width='35%'><div id='researchUnit.charger'> 
-		<el-input v-model="R_charger" type='text' name='bean.charger'  id='charger' size='0' maxLength = '40' ></el-input></div></td>
+		<el-input v-model="Unitform[0].R_charger" type='text' name='bean.charger'  id='charger' size='0' maxLength = '40' ></el-input></div></td>
 	</tr>
 	<tr>
 		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>挂靠单位：</td>
 		<td class='list' colspan=1 rowspan=1 width='35%'><div id='researchUnit.upUnitId'>
-			<el-select v-model="R_upUnitId"  name='bean.upUnitId' placeholder="请选择">
+			<el-select v-model="Unitform[0].R_upUnitId"  name='bean.upUnitId' placeholder="请选择">
 				<el-option
 				v-for="item in R_upUnitIds"
 				:key="item.value"
@@ -39,20 +39,20 @@
 			</div></td>
 		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>学科门类：</td>
 		<td class='list' colspan=1 rowspan=1 width='35%'><div id='researchUnit.subjectClassId'>	
-		<el-radio v-model="R_subjectClassId" name='bean.subjectClassId' label="1" value='1' >科技类</el-radio>
-		<el-radio v-model="R_subjectClassId"  name='bean.subjectClassId' label="2" value='2' >社科类</el-radio>
+		<el-radio v-model="Unitform[0].R_subjectClassId" name='bean.subjectClassId' label="1" value='1' >科技类</el-radio>
+		<el-radio v-model="Unitform[0].R_subjectClassId"  name='bean.subjectClassId' label="2" value='2' >社科类</el-radio>
 
 	<font color=red> *</font></div></td>
 	</tr>
 	<tr>
 		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>是否统计：</td>
 		<td class='list' colspan=1 rowspan=1 width='35%'><div id='researchUnit.staTypeId'>	
-		<el-radio v-model="R_staTypeId" name='bean.staTypeId' label="1" value='0' >否</el-radio>
-		<el-radio v-model="R_staTypeId"  name='bean.staTypeId' label="2" value='1' >是</el-radio>
+		<el-radio v-model="Unitform[0].R_staTypeId" name='bean.staTypeId' label="1" value='0' >否</el-radio>
+		<el-radio v-model="Unitform[0].R_staTypeId"  name='bean.staTypeId' label="2" value='1' >是</el-radio>
 	<font color=red> *</font></div></td>
 		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>一级学科：</td>
 		<td class='list' colspan=1 rowspan=1 width='35%'><div id='researchUnit.subjectId'>
-			<el-select v-model="R_subjectId"  name='bean.subjectId' placeholder="请选择">
+			<el-select v-model="Unitform[0].R_subjectId"  name='bean.subjectId' placeholder="请选择">
 				<el-option
 				v-for="item in R_subjectIds"
 				:key="item.value"
@@ -65,51 +65,51 @@
 	<tr>
 		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>机构级别：</td>
 		<td class='list' colspan=1 rowspan=1 width='35%'><div id='researchUnit.levelId'>	
-		<el-radio v-model="R_levelId" name='bean.levelId' label="1" value='1' >国家级</el-radio>
-		<el-radio v-model="R_levelId"  name='bean.levelId' label="2" value='2' >省部级</el-radio><br>
-		<el-radio v-model="R_levelId" name='bean.levelId' label="3" value='3' >地厅级</el-radio>
-		<el-radio v-model="R_levelId"  name='bean.levelId' label="4" value='4' >学校级</el-radio>
+		<el-radio v-model="Unitform[0].R_levelId" name='bean.levelId' label="国家级" value='国家级' >国家级</el-radio>
+		<el-radio v-model="Unitform[0].R_levelId" name='bean.levelId' label="省部级" value='省部级' >省部级</el-radio><br>
+		<el-radio v-model="Unitform[0].R_levelId" name='bean.levelId' label="地厅级" value='地厅级' >地厅级</el-radio>
+		<el-radio v-model="Unitform[0].R_levelId" name='bean.levelId' label="学校级" value='学校级' >学校级</el-radio>
 
 	</div></td>
 		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>电话：</td>
 		<td class='list' colspan=1 rowspan=1 width='35%'><div id='researchUnit.tel'> 
-		<el-input v-model="R_telOffice" type='text' name='bean.tel'  id='tel' size='0'    maxLength = '128'></el-input></div></td>
+		<el-input v-model="Unitform[0].R_telOffice" type='text' name='bean.tel'  id='tel' size='0'    maxLength = '128'></el-input></div></td>
 	</tr>
 	<tr>
 		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>传真：</td>
 		<td class='list' colspan=1 rowspan=1 width='35%'><div id='researchUnit.fax'> 
-		<el-input v-model="R_fax" type='text' name='bean.fax'  id='fax' size='0'    maxLength = '128'></el-input></div></td>
+		<el-input v-model="Unitform[0].R_fax" type='text' name='bean.fax'  id='fax' size='0'    maxLength = '128'></el-input></div></td>
 		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>地址：</td>
 		<td class='list' colspan=1 rowspan=1 width='35%'><div id='researchUnit.address'> 
-		<el-input v-model="R_address" type='text' name='bean.address'  id='address' size='0'    maxLength = '255' ></el-input></div></td>
+		<el-input v-model="Unitform[0].R_address" type='text' name='bean.address'  id='address' size='0'    maxLength = '255' ></el-input></div></td>
 	</tr>
 	<tr>
 		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>邮编：</td>
 		<td class='list' colspan=1 rowspan=1 width='35%'><div id='researchUnit.postalCode'> 
-		<el-input v-model="R_postalCode" type='text' name='bean.postalCode'  id='postalCode' size='0'   maxlength="6" ></el-input></div></td>
+		<el-input v-model="Unitform[0].R_postalCode" type='text' name='bean.postalCode'  id='postalCode' size='0'   maxlength="6" ></el-input></div></td>
 		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>Email：</td>
 		<td class='list' colspan=1 rowspan=1 width='35%'><div id='researchUnit.email'> 
-		<el-input v-model="R_email" type='email' name='bean.email'  id='email' size='0'    maxLength = '128' ></el-input></div></td>
+		<el-input v-model="Unitform[0].R_email" type='email' name='bean.email'  id='email' size='0'    maxLength = '128' ></el-input></div></td>
 	</tr>
 	<tr>
 		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>网址：</td>
 		<td class='list' colspan=1 rowspan=1 width='35%'><div id='researchUnit.website'> 
-		<el-input v-model="R_website" type='text' name='bean.website'  id='website' size='0'    maxLength = '128' ></el-input></div></td>
+		<el-input v-model="Unitform[0].R_website" type='text' name='bean.website'  id='website' size='0'    maxLength = '128' ></el-input></div></td>
 		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>成立日期：</td>
 		<td class='list' colspan=1 rowspan=1 width='35%'><div id='researchUnit.createDate'> 
-		<el-date-picker type='date' name='bean.createDate'  id='createDate' size=12 v-model="R_createDate"  placeholder="选择日期" suffix-icon="el-icon-date"  class="Wdate" ></el-date-picker>
+		<el-date-picker type='date' @change="getTime" value-format="yyyy-MM-dd" name='bean.createDate'  id='createDate' size=12 v-model="Unitform[0].R_createDate" suffix-icon="el-icon-date"  class="Wdate" ></el-date-picker>
 		<font color=red> *</font></div></td>
 	</tr>
 	<tr>
 		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>是否实体机构：</td>
 		<td class='list' colspan=1 rowspan=1 width='35%'><div id='researchUnit.entityFlag'>	
-		<el-radio v-model="R_entityFlag" name='bean.entityFlag' label="1" value='0' >否</el-radio>
-		<el-radio v-model="R_entityFlag"  name='bean.entityFlag' label="2" value='1' >是</el-radio>
+		<el-radio v-model="Unitform[0].R_entityFlag" name='bean.entityFlag' label="1" value='0' >否</el-radio>
+		<el-radio v-model="Unitform[0].R_entityFlag"  name='bean.entityFlag' label="2" value='1' >是</el-radio>
 
 	<font color=red> *</font></div></td>
 		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>组成类型：</td>
 		<td class='list' colspan=1 rowspan=1 width='35%'><div id='researchUnit.zclx'>
-			<el-select v-model="R_zclx"  name='bean.zclx' placeholder="请选择">
+			<el-select v-model="Unitform[0].R_zclx"  name='bean.zclx' placeholder="请选择">
 				<el-option
 				v-for="item in R_zclxs"
 				:key="item.value"
@@ -142,17 +142,72 @@
 
 </el-card>
 </div>
-</form>
+		<el-table class="table" :data="Unitform" border style="width: 100%" hidden>
+			<el-table-column prop="R_name" label="机构名称"></el-table-column>
+			<el-table-column prop="R_code" label="机构编号"></el-table-column>
+			<el-table-column prop="R_charger" label="负责人"></el-table-column>
+			<el-table-column prop="R_upUnitId" label="挂靠单位"></el-table-column>
+			<el-table-column prop="R_subjectClassId" label="学科门类"></el-table-column>
+			<el-table-column prop="R_staTypeId" label="是否统计"></el-table-column>
+			<el-table-column prop="R_subjectId" label="一级学科"></el-table-column>
+			<el-table-column prop="R_levelId" label="机构级别"></el-table-column>
+			<el-table-column prop="R_telOffice" label="电话"></el-table-column>
+			<el-table-column prop="R_fax" label="传真"></el-table-column>		
+			<el-table-column prop="R_address" label="地址"></el-table-column>
+			<el-table-column prop="R_postalCode" label="邮编"></el-table-column>
+			<el-table-column prop="R_email" label="Email"></el-table-column>
+			<el-table-column prop="R_website" label="网址"></el-table-column>
+			<el-table-column prop="R_createDate" label="成立日期"></el-table-column>
+			<el-table-column prop="R_entityFlag" label="是否实体机构"></el-table-column>
+			<el-table-column prop="R_zclx" label="组成类型"></el-table-column>
+		</el-table>
+	
+</el-form>
 </template>
 
 
+<style>
+body{
+  margin:0 0 0 0;
+  font-size: 15px;
+}
+.el-input{
+	width:200px;
+}
+tr{
+	left:100px;
+	height:70px;
+}
+</style>
+
 <script>
+import API from '../api/api_test';
+import FileSaver from "file-saver";
+import XLSX from "xlsx"
   export default {
     data() {  
       return {
 		activeIndex:'1',
 		activeIndex2:'1',
-		R_upUnitId:'',
+		Unitform:[{
+			R_name:'',
+			R_code:'',
+			R_charger:'',
+			R_upUnitId:'',
+			R_subjectClassId:'',
+			R_staTypeId:'',
+			R_subjectId:'',
+			R_levelId:'',
+			R_telOffice:'',
+			R_fax:'',
+			R_address:'',
+			R_postalCode:'',
+			R_email:'',
+			R_website:'',
+			R_createDate:'',
+			R_entityFlag:'',
+			R_zclx:'',
+		}],
 		R_upUnitIds:[
 			{ value:'',label:'--请选择--'
 			},{ value:'教育学院(师范学院)',label:'教育学院(师范学院)'
@@ -214,7 +269,6 @@
 			},{ value:'新时代价值与文化研究中心',label:'新时代价值与文化研究中心'
 			},{ value:'生态环境工程技术研发中心',label:'生态环境工程技术研发中心'
 			}],
-		R_subjectId:'',
 		R_subjectIds:[
 			{ value:'',label:'--请选择--'
 			},{ value:'管理学',label:'管理学'
@@ -238,42 +292,25 @@
 			},{ value:'体育科学',label:'文学'
 			},{ value:'统计学',label:'统计学'
 			}],
-		R_zclx:'',
 		R_zclxs:[
-			{ value:'',label:'--请选择--'
-			},{ value:'10',label:'政府部门办'
-			},{ value:'20',label:'与国内高校合办'
-			},{ value:'30',label:'与国内独立研究机构合办'
-			},{ value:'40',label:'与境外机构合办'
-			},{ value:'51',label:'与境内注册外商独资企业合办'
-			},{ value:'52',label:'与境内注册其他企业合办'
-			},{ value:'60',label:'单位自办'
-			},{ value:'70',label:'其他'
-			}],
-		R_fileId:'',
-		R_fileurl:'',
+				{ value:'',label:'--请选择--'
+				},{ value:'10',label:'政府部门办'
+				},{ value:'20',label:'与国内高校合办'
+				},{ value:'30',label:'与国内独立研究机构合办'
+				},{ value:'40',label:'与境外机构合办'
+				},{ value:'51',label:'与境内注册外商独资企业合办'
+				},{ value:'52',label:'与境内注册其他企业合办'
+				},{ value:'60',label:'单位自办'
+				},{ value:'70',label:'其他'
+				}],
 		fileList: [{name: 'file.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}, {name: 'file2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}],
-		R_name:'',
-		R_code:'',
-		R_charger:'',
-		R_subjectClassId:'',
-		R_staTypeId:'',
-		R_levelId:'',
-		R_telOffice:'',
-		R_entityFlag:'',
-		R_fax:'',
-		R_address:'',
-		R_postalCode:'',
-		R_email:'',
-		R_website:'',
-		R_createDate:'',
-		}
+			}
 	},
     methods: {
       handleSelect(key, keyPath) {
         console.log(key, keyPath);
       },
-	  handleRemove(file, fileList) {
+	  	handleRemove(file, fileList) {
         console.log(file, fileList);
       },
       handlePreview(file) {
@@ -284,7 +321,77 @@
       },
       beforeRemove(file, fileList) {
         return this.$confirm(`确定移除 ${ file.name }？`);
-      }
+			},
+			getTime(val) {
+        this.Unitform[0].R_createDate=val;
+      },
+			//获取默认信息
+			getUnitinfo(){
+				API.getUnitinfo().then((result)=>{
+					console.log(result);
+					let json=result[0];
+					//this.Unitform[0]=JSON.parse(JSON.stringify(json));
+					this.Unitform[0].R_name=json.R_name;
+					this.Unitform[0].R_code=json.R_code;
+					this.Unitform[0].R_charger=json.R_charger;
+					this.Unitform[0].R_upUnitId=json.R_upUnitId;
+					this.Unitform[0].R_subjectClassId=json.R_subjectClassId;
+					this.Unitform[0].R_staTypeId=json.R_staTypeId;
+					this.Unitform[0].R_subjectId=json.R_subjectId;
+					this.Unitform[0].R_levelId=json.R_levelId;
+					this.Unitform[0].R_telOffice=json.R_telOffice;
+					this.Unitform[0].R_fax=json.R_fax;
+					this.Unitform[0].R_address=json.R_address;
+					this.Unitform[0].R_postalCode=json.R_postalCode;
+					this.Unitform[0].R_email=json.R_email;
+					this.Unitform[0].R_website=json.R_website;
+					this.Unitform[0].R_createDate=json.R_createDate;
+					this.Unitform[0].R_entityFlag=json.R_entityFlag;
+					this.Unitform[0].R_zclx=json.R_zclx;
+				})
+			},
+			saveUnitinfo(){
+				let that =this;
+				this.$refs.Unitform.validate((valid)=>{
+					if(valid){
+						let para=Object.assign({},this.Unitform[0]);
+						 API.saveUnitinfo(para).then(function(result){
+							 console.log(result);
+						 })
+					}
+				}
+			)},
+			getexcel(){
+					// 设置当前日期
+				let time = new Date();
+				let year = time.getFullYear();
+				let month = time.getMonth() + 1;
+				let day = time.getDate();
+				let name = year + "" + month + "" + day;
+				// console.log(name)
+				/* generate workbook object from table */
+				//  .table要导出的是哪一个表格
+				var wb = XLSX.utils.table_to_book(document.querySelector(".table"));
+				/* get binary string as output */
+				var wbout = XLSX.write(wb, {
+					bookType: "xlsx",
+					bookSST: true,
+					type: "array"
+				});
+				try {
+					//  name+'.xlsx'表示导出的excel表格名字
+					FileSaver.saveAs(
+						new Blob([wbout], { type: "application/octet-stream" }),
+						name + ".xlsx"
+					);
+				} catch (e) {
+					if (typeof console !== "undefined") console.log(e, wbout);
+				}
+				return wbout;
+				},
+			reload(){
+				window.history.go(0);
+			},
     }
   }
 </script>
