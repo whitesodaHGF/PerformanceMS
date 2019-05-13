@@ -7,7 +7,6 @@ let AddController = {};
 let _query=require('../data/mysqlpool');
 
 AddController.ADD = (req,res)=>{
-  
   let addsql='insert into T_user values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
   let addsqlparams=[req.body.T_name,req.body.T_account,req.body.T_birthday,req.body.T_sexId,req.body.T_unitId,req.body.T_divisionId,req.body.T_eduDegreeId,req.body.T_eduLevelId,req.body.T_titleId,req.body.T_positionType,req.body.T_dutyDate,req.body.T_honorTitleId,req.body.T_subjectClassId,req.body.T_isStat,req.body.T_subjectId,req.body.T_subject2Id,req.body.T_subject3Id,req.body.T_hrUnitId,req.body.T_mobile,req.body.T_telOffice,req.body.T_email,req.body.T_qq,req.body.T_researchField,req.body.T_standby10,req.body.T_nameEn,req.body.T_polityId,req.body.T_subjectCorrelationId,req.body.T_idCard,req.body.T_teacherType,req.body.T_tutorTypeId,req.body.T_employDate,req.body.T_duty,req.body.T_nationalityId,req.body.T_nationId,req.body.T_address,req.body.T_postalCode,req.body.T_telHome,req.body.T_faxOffice,req.body.T_personalWebSite,req.body.T_personState,req.body.T_language1Id,req.body.T_language2Id,req.body.T_languageLevel1Id,req.body.T_languageLevel2Id,req.body.T_graduateSchool,req.body.T_learning,req.body.T_experienceAbroad,req.body.T_parttime,req.body.T_learnSpecialty];
   _query(addsql,addsqlparams,(err,result)=>{

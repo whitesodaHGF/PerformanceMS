@@ -1,85 +1,112 @@
 <template>
-<el-form ref="Beanform" :model="Beanform[0]" name="Beanform" method="post" action="/business/team/team.do" enctype="multipart/form-data"  size="mini">
-	<div class="mainbg">
 	<el-card class="box-card">
+		<!-- header -->
 		<div slot="header" class="clearfix">
 			<span >科研团队新增</span>
-			<el-button size="small"  style="float:right;" @click="getexcel">导出</el-button>
-			<el-button size="small"  style="float:right;" @click="getBeaninfo">获取</el-button>
-			<router-link to="/Notice"><el-button size="small"  style="float:right;">返回</el-button></router-link>
-			<el-button size="small"  style="float:right;" @click="reload" >重置</el-button>
-			<el-button size="small"  style="float:right;" @click="saveBeaninfo">保存</el-button>
+			<el-button size="large"  style="float:right;" @click="getexcel">导出</el-button>
+			<el-button size="large"  style="float:right;" @click="getBeaninfo">获取</el-button>
+			<router-link to="/Notice"><el-button size="large"  style="float:right;">返回</el-button></router-link>
+			<el-button size="large"  style="float:right;" @click="reload" >重置</el-button>
+			<el-button size="large"  style="float:right;" @click="saveBeaninfo">保存</el-button>
 		</div>
-		
-	<table id="table" cellspacing="0" cellpadding="0" align="center">
-	<tr>
-		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>团队名称：</td>
-		<td class='list' colspan=3 rowspan=1><div id='team.name'> 
-        <el-input type='text' v-model="Beanform[0].B_name" name='bean.name' id='name' size=40 maxLength = '100' ></el-input><font color=red> *</font></div></td>
-	</tr>
-	<tr>
-		<td class='tdrowhead' colspan=1 rowspan=1 width='15%' title='“带头人”提供拼音首字母检索功能。例如：输入拼音“zs”即可显示姓名“张三”'>带头人：</td>
-		<td class='list' colspan=3 rowspan=1 title='“带头人”提供拼音首字母检索功能。例如：输入拼音“zs”即可显示姓名“张三”'><div id='team.chargerName'> 
-    <el-input type='text' v-model="Beanform[0].B_charger" name='bean.chargerName'  id='chargerName' size=40  maxLength = '40' ></el-input><font color=red> *</font></div></td>
-	</tr>
-	<tr>
-		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>所属单位：</td>
-		<td class='list' colspan=1 rowspan=1 width='35%'><div id='team.unitId'>
-			<el-select v-model="Beanform[0].B_unitId"  name='bean.unitId' placeholder="请选择">
+		<!-- mainbg -->
+		<div class="mainbg">
+			<el-form ref="Beanform" :model="Beanform[0]" name="Beanform" method="post" action="/business/team/team.do" enctype="multipart/form-data"  size="mini">
+				<el-row>
+					<el-col :span=12 :push=4 >
+						<el-form-item label="团队名称：">
+							<el-input type='text' v-model="Beanform[0].B_name" name='bean.name' id='name' size='50' maxLength = '100' ></el-input>
+							<font color=red> *</font>
+						</el-form-item>
+					</el-col>
+				</el-row>
+				<el-row>
+					<el-col :span=12 :push=4 >
+						<el-form-item label="带头人：">
+							<el-input type='text' v-model="Beanform[0].B_charger" name='bean.chargerName'  id='chargerName' size='50'  maxLength = '40' ></el-input>
+							<font color=red> *</font>
+						</el-form-item>
+					</el-col>
+				</el-row>
+				<el-row>
+					<el-col :span=12 :push=4 >
+						<el-form-item label="所属单位：">
+							<el-select v-model="Beanform[0].B_unitId"  name='bean.unitId' size='50' placeholder="请选择">
                 <el-option
                 v-for="item in B_unitIds"
                 :key="item.value"
                 :label="item.label"
                 :value="item.value">
                 </el-option>
-		    </el-select>
-               <font color=red> *</font></div></td>
-		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>带头人性别：</td>
-		<td class='list' colspan=1 rowspan=1 width='35%'><div id='team.chargerGender'>	
-        <el-radio v-model="Beanform[0].B_chargerGender" name='bean.chargerGender' label="男" value='男'  >男</el-radio>
-		<el-radio v-model="Beanform[0].B_chargerGender" name='bean.chargerGender' label="女" value='女'  >女</el-radio>
-	
-	</div></td>
-	</tr>
-	<tr>
-		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>出生日期：</td>
-		<td class='list' colspan=1 rowspan=1 width='35%'><div id='team.chargerBrithday'> 
-        <el-date-picker value-format="yyyy-MM-dd" @change="getTime" v-model="Beanform[0].B_chargerBrithday" name='bean.chargerBrithday'  id='chargerBrithday' size=12 maxLength = '10'  class="Wdate" ></el-date-picker></div></td>
-		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>职称：</td>
-		<td class='list' colspan=1 rowspan=1 width='35%'><div id='team.chargerTitleId'>
-				<el-select v-model="Beanform[0].B_chargerTitleId"  name='bean.chargerTitleId' placeholder="请选择">
-					<el-option
-					v-for="item in B_chargerTitleIds"
-					:key="item.value"	
-					:label="item.label"
-					:value="item.value">
-					</el-option>
-		    </el-select></div></td>
-	</tr>
-	<tr>
-		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>办公电话：</td>
-		<td class='list' colspan=3 rowspan=1><div id='team.officeTel'> 
-        <el-input v-model="Beanform[0].B_telOffice" type='text' name='bean.officeTel'  id='officeTel' size=0 maxLength = '20' ></el-input></div></td>
-	</tr>
-	<tr>
-		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>办公地点：</td>
-		<td class='list' colspan=3 rowspan=1><div id='team.officeAddress'> 
-        <el-input v-model="Beanform[0].B_officeAddress" type='text' name='bean.officeAddress'  id='officeAddress' size=30 maxLength = '100' ></el-input></div></td>
-	</tr>
-	<tr>
-		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>研究方向：</td>
-		<td class='list' colspan=3 rowspan=1><div id='team.researchField'>
-        <el-input type="textarea" v-model="Beanform[0].B_researchField" name='bean.researchField' cols=100  rows=2 ></el-input></div></td>
-	</tr>	
-	<tr>
-		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>建设规划：</td>
-		<td class='list' colspan=3 rowspan=1><div id='team.constructionPlan'>
-        <el-input type="textarea" v-model="Beanform[0].B_constructionPlan" name='bean.constructionPlan' cols=100   rows=2 ></el-input></div></td>
-	</tr>
-	</table>
-	</el-card>	
-	<!-- mainbg end -->
-    </div> 
+		   				</el-select>
+              <font color=red> *</font>
+						</el-form-item>
+					</el-col>
+					<el-col :span=12>
+						<el-form-item label="带头人性别：">
+							<el-radio v-model="Beanform[0].B_chargerGender" name='bean.chargerGender' size='50' label="男" value='男'  >男</el-radio>
+							<el-radio v-model="Beanform[0].B_chargerGender" name='bean.chargerGender' size='50' label="女" value='女'  >女</el-radio>
+						</el-form-item>
+					</el-col>
+				</el-row>
+				<el-row>
+					<el-col :span=12 :push=4 >
+						<el-form-item label="出生日期：">
+							<el-date-picker 
+								value-format="yyyy-MM-dd"
+								@change="getTime" 
+								v-model="Beanform[0].B_chargerBrithday" 
+								name='bean.chargerBrithday' size='50' 
+								id='chargerBrithday'
+								maxLength = '10'  
+								class="Wdate" >
+							</el-date-picker>
+						</el-form-item>
+					</el-col>
+					<el-col :span=12>
+						<el-form-item label="职称：">
+							<el-select v-model="Beanform[0].B_chargerTitleId"  name='bean.chargerTitleId' size='50' placeholder="请选择">
+								<el-option
+								v-for="item in B_chargerTitleIds"
+								:key="item.value"	
+								:label="item.label"
+								:value="item.value">
+								</el-option>
+							</el-select>
+						</el-form-item>
+					</el-col>
+				</el-row>
+				<el-row>
+					<el-col :span=12 :push=4 >
+						<el-form-item label="办公电话：">
+							<el-input v-model="Beanform[0].B_telOffice" type='text' name='bean.officeTel' size='50' id='officeTel'  maxLength = '20' ></el-input>
+						</el-form-item>
+					</el-col>
+				</el-row>
+				<el-row>
+					<el-col :span=12 :push=4 >
+						<el-form-item label="办公地点：">
+							<el-input v-model="Beanform[0].B_officeAddress" type='text' name='bean.officeAddress' size='50' id='officeAddress' maxLength = '100' ></el-input>
+						</el-form-item>
+					</el-col>
+				</el-row>
+				<el-row>
+					<el-col :span=12 :push=4 >
+						<el-form-item label="研究方向：">
+							<el-input type="textarea" v-model="Beanform[0].B_researchField" name='bean.researchField' size='50' cols=100  rows=2 ></el-input>
+						</el-form-item>
+					</el-col>
+				</el-row>
+				<el-row>
+					<el-col :span=12 :push=4 >
+						<el-form-item label="建设规划：">
+							<el-input type="textarea" v-model="Beanform[0].B_constructionPlan" name='bean.constructionPlan' size='50' cols=100   rows=2 ></el-input>
+						</el-form-item>
+					</el-col>
+				</el-row>
+			</el-form>
+		</div>
+		<!-- table -->
 		<el-table class="table" :data="Beanform" border style="width: 100%" hidden>
 			<el-table-column prop="B_name" label="团队名称"></el-table-column>
 			<el-table-column prop="B_charger" label="带头人"></el-table-column>
@@ -92,9 +119,18 @@
 			<el-table-column prop="B_researchField" label="研究方向"></el-table-column>
 			<el-table-column prop="B_constructionPlan" label="建设规划"></el-table-column>		
 		</el-table>
-	</el-form>
-
+	</el-card>
 </template>
+
+<style>
+body{
+  margin:0 0 0 0;
+  font-size: 15px;
+}
+.el-input{
+	width:200px;
+}
+</style>
 
 <script>
 import API from '../api/api_test';
@@ -300,21 +336,24 @@ import XLSX from "xlsx";
 			reload(){
 				window.history.go(0);
 			},
-    }
+		},
+		created:function(){
+			API.getBeaninfo().then((result)=>{
+					console.log(result);
+					let json=result[0];
+					 //this.Beanform[0]=JSON.parse(JSON.stringify(json));
+					this.Beanform[0].B_name=json.B_name;
+					this.Beanform[0].B_charger=json.B_charger;
+					this.Beanform[0].B_unitId=json.B_unitId;
+					this.Beanform[0].B_chargerGender=json.B_chargerGender;
+					this.Beanform[0].B_chargerBrithday=json.B_chargerBrithday;
+					this.Beanform[0].B_chargerTitleId=json.B_chargerTitleId;
+					this.Beanform[0].B_telOffice=json.B_telOffice;
+					this.Beanform[0].B_officeAddress=json.B_officeAddress;
+					this.Beanform[0].B_researchField=json.B_researchField;
+					this.Beanform[0].B_constructionPlan=json.B_constructionPlan;
+				})
+		}
   }
 </script>
-
-
-<style>
-body{
-  margin:0 0 0 0;
-  font-size: 15px;
-}
-tr{
-	height:70px;
-}
-.el-input{
-	width:250px;
-}
-</style>
 

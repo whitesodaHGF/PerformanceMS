@@ -4,24 +4,23 @@
     <span>机构列表</span>
   </div>
   <el-row>
-  <el-col :span="12" >
-    <el-pagination
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
-      :current-page.sync="Unitlist.currentPage3"
-      :page-size="100"
-      layout="prev, pager, next, jumper"
-      :total="1000">
-    </el-pagination>
+    <el-col :span="12" >
+      <el-pagination
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page.sync="Unitlist.currentPage3"
+        :page-size="100"
+        layout="prev, pager, next, jumper"
+        :total="1000">
+      </el-pagination>
+      </el-col>
+    <el-col :span="12">
+      <el-button size="small" @click="getexcel" style="float:right;">导出</el-button>
+      <router-link to="/UnitSearch" ><el-button size="small" style="float:right;">查询</el-button></router-link>
+      <router-link to="/ResearchUnit" ><el-button size="small" style="float:right;" >新增</el-button></router-link>
     </el-col>
-  <el-col :span="12">
-    <el-button size="small" @click="getexcel" style="float:right;">导出</el-button>
-    <router-link to="/UnitSearch" ><el-button size="small" style="float:right;">查询</el-button></router-link>
-    <router-link to="/ResearchUnit" ><el-button size="small" style="float:right;" >新增</el-button></router-link>
-  </el-col>
-</el-row>
-  
-    <el-table
+  </el-row>
+  <el-table
     class="table"
     ref="multipleTable"
     :data="Unitlist"
@@ -30,7 +29,6 @@
     border
     style="width: 100%"
     @selection-change="handleSelectionChange">
-
     <el-table-column type="selection" prop="All" label="全选" ></el-table-column>
     <el-table-column  prop="R_code" label="机构编号" width=50 ></el-table-column>
     <el-table-column  prop="R_name" label="机构名称" width=400></el-table-column>
@@ -49,7 +47,7 @@
   background
   layout="prev, pager, next"
   :total="100">
-</el-pagination>
+  </el-pagination>
 </el-card>
 
 </template>
@@ -60,10 +58,6 @@
 
   .item {
     padding: 18px 0;
-  }
-
-  .box-card {
-    width: 1400px;
   }
 </style>
 <script>

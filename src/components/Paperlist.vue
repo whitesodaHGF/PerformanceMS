@@ -62,13 +62,8 @@
   .text {
     font-size: 30px;
   }
-
   .item {
-    padding: 18px 0;
-  }
-
-  .box-card {
-    width: 1400px;
+    padding: 18px 0;  
   }
 </style>
 <script>

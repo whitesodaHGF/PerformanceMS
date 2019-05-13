@@ -1,273 +1,324 @@
 <template>
-<el-form ref="Paperform" :model="Paperform[0]" name="paperForm" method="post" action="/business/paper/paper.do" enctype="multipart/form-data">
-<el-card class="box-card">
-<div slot="header" class="clearfix">
-    <span style="font-weight:bold;">论文新增</span>
-		<el-button size="small"  style="float:right;" @click="getexcel">导出</el-button>
-    <el-button size="small"  style="float:right;" @click="getPaperinfo">获取</el-button>
-		<router-link to="/Notice"><el-button size="small"  style="float:right;">返回</el-button></router-link>
-		<el-button size="small"  style="float:right;" @click="reload" >重置</el-button>
-		<el-button size="small"  style="float:right;" @click="savePaperinfo">保存</el-button>
-  </div>
-<el-tabs type="border-card">
-	<el-tab-pane label="基本信息">
-		  <table id="table" cellspacing="0" cellpadding="0" align="center">
-	<div>
-		<tr>
-			<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>论文类型：</td>
-			<td class='list' colspan=3 rowspan=1><div id='paper.paperModeId'>	
-			<el-radio v-model="Paperform[0].P_paperModeId" name='bean.paperModeId' label="期刊论文" value='期刊论文' >期刊论文</el-radio>
-			<el-radio v-model="Paperform[0].P_paperModeId" name='bean.paperModeId' label="论文集" value='论文集' >论文集</el-radio>
-			<el-radio v-model="Paperform[0].P_paperModeId" name='bean.paperModeId' label="文章" value='文章' >文章</el-radio>
-		<font color=red> *</font></div></td>
-		</tr>
-		<tr>
-			<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>论文题目：</td>
-			<td class='list' colspan=3 rowspan=1><div id='paper.name'> 
-			<el-input type='text' v-model="Paperform[0].P_name" name='bean.name'  id='name' size=70   maxLength = '512' ></el-input ><font color=red> *</font></div></td>
-		</tr>
-		<tr>
-			<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>学科门类：</td>
-			<td class='list' colspan=1 rowspan=1 width='35%'><div id='paper.subjectClassId'>	
-			<el-radio v-model="Paperform[0].P_subjectClassId" name='bean.subjectClassId' label="科技类" value='科技类'>科技类</el-radio>
-			<el-radio v-model="Paperform[0].P_subjectClassId" name='bean.subjectClassId' label="社科类" value='社科类'>社科类</el-radio>
-            <font color=red> *</font></div></td>
-			<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>发表/出版时间：</td>
-			<td class='list' colspan=1 rowspan=1 width='35%'><div id='paper.publishDate'> 
-			<el-date-picker type="date" value-format="yyyy-MM-dd" @change="getTime" v-model="Paperform[0].P_publishDate" name='bean.publishDate'  id='publishDate' size=12 suffix-icon="el-icon-date"  class="Wdate" ></el-date-picker>
-			
-			<font color=red> *</font></div></td>
-		</tr>
-		<tr>
-			<td class='tdrowhead' colspan=1 rowspan=1 width='15%' title='“刊物级别”提供文字检索功能。例如：输入拼音“管理评论”即可显示期刊“管理评论”'>发表刊物/论文集：</td>
-			<td class='list' colspan=3 rowspan=1 title='“刊物级别”提供文字检索功能。例如：输入拼音“管理评论”即可显示期刊“管理评论”'><div id='paper.publishUnit'> 
-			<el-input type='text' v-model="Paperform[0].P_publishUnit" name='bean.publishUnit'  id='publishUnit' size=30   maxLength = '128' ></el-input ><font color=red> *</font></div></td>
-		</tr>
-		<tr>
-			<td class='tdrowhead' colspan='1' rowspan='1' width='15%'>刊物类型：</td>
-			<td  colspan='3' rowspan='1' >
-			<el-checkbox-group v-model="Paperform[0].P_paperTypes">
-				<el-checkbox label="CSSCI扩展版"></el-checkbox>
-				<el-checkbox label="CSSCI来源刊"></el-checkbox>
-				<el-checkbox label="CSSCI收录集刊"></el-checkbox>
-				<el-checkbox label="CSSCI"></el-checkbox>
-				<el-checkbox label="SCI"></el-checkbox>
-				<el-checkbox label="EI"></el-checkbox>
-				<el-checkbox label="ISTP"></el-checkbox><br>
-				<el-checkbox label="核心期刊"></el-checkbox>
-				<el-checkbox label="一般期刊"></el-checkbox>
-				<el-checkbox label="人大复印转载"></el-checkbox>	
-				<el-checkbox label="T类一级期刊"></el-checkbox>
-				<el-checkbox label="T类二级期刊"></el-checkbox>
-				<el-checkbox label="T类三级期刊"></el-checkbox><br>
-				<el-checkbox label="A类重要期刊"></el-checkbox>
-				<el-checkbox label="B类重要期刊"></el-checkbox>
-				<el-checkbox label="C类重要期刊"></el-checkbox>
-				<el-checkbox label="D类重要期刊"></el-checkbox>
-				<el-checkbox label="东莞理工学院学报"></el-checkbox>
-			</el-checkbox-group>
-			</td>
-		</tr>
-		<br>
-		<tr class="employType">
-			<td class='tdrowhead' colspan='1' rowspan='1' width='15%' >收录类别：</td>
-			<td  colspan='3' rowspan='1' >
-				<el-checkbox-group v-model="Paperform[0].P_employType">
-					<el-checkbox label="《中国社会科学文摘》"></el-checkbox>
-					<el-checkbox label="《新华文摘》"></el-checkbox>
-					<el-checkbox label="人文社科A类重要期刊"></el-checkbox>
-					<el-checkbox label="来源刊"></el-checkbox><br>
-					<el-checkbox label="CSSCI"></el-checkbox>
-					<el-checkbox label="SSCI"></el-checkbox>
-					<el-checkbox label="A&HCI"></el-checkbox>
-				</el-checkbox-group>
-			</td >
-		</tr>
-		<tr>
-		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>所属单位：</td>
-		<td class='list' colspan=1 rowspan=1 width='35%'><div id='paper.unitId'>
-			<el-select v-model="Paperform[0].P_unitId"  name='bean.unitId' placeholder="请选择">
-				<el-option
-				v-for="item in P_unitIds"
-				:key="item.value"
-				:label="item.label"
-				:value="item.value">
-				</el-option>
-			</el-select>
-			<font color=red> *</font></div></td>
-			<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>一级学科：</td>
-			<td class='list' colspan=1 rowspan=1 width='35%'><div id='paper.subjectId'>
-			<el-select v-model="Paperform[0].P_subjectId"  name='bean.subjectId' placeholder="请选择">
-				<el-option
-				v-for="item in P_subjectIds"
-				:key="item.value"
-				:label="item.label"
-				:value="item.value">
-				</el-option>
-			</el-select>
-			<font color=red> *</font></div></td>
-		</tr>
-		<tr>
-			<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>项目来源：</td>
-			<td class='list' colspan=1 rowspan=1 width='35%'><div id='paper.projectSourceId'>
-				<el-select v-model="Paperform[0].P_projectSourceId"  name='bean.projectSourceId' placeholder="请选择">
-					<el-option
-					v-for="item in P_projectSourceIds"
-					:key="item.value"
-					:label="item.label"
-					:value="item.value">
-					</el-option>
-				</el-select>
-				<font color=red> *</font></div>
-			</td>
-				<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>研究类别：</td>
-				<td class='list' colspan=1 rowspan=1 width='35%'><div id='paper.researchClassId'>
-				<el-select v-model="Paperform[0].P_researchClassId"  name='bean.researchClassId' placeholder="请选择">
-					<el-option value='' >--请选择--</el-option>
-					<el-option value='基础研究' >基础研究</el-option>
-					<el-option value='实验与发展' >实验与发展</el-option>
-					<el-option value='应用研究' >应用研究</el-option>
-				</el-select>
-				<font color=red> *</font></div></td>
-		</tr>
-		<tr>
-			<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>发表范围：</td>
-			<td class='list' colspan=1 rowspan=1 width='35%'><div id='paper.publishRangeId'>
-					<el-select v-model="Paperform[0].P_publishRangeId"  name='bean.publishRangeId' placeholder="请选择">
-						<el-option value='' >--请选择--</el-option>
-						<el-option value='国外学术期刊' >国外学术期刊</el-option>
-						<el-option value='国内外公开发行' >国内外公开发行</el-option>
-						<el-option value='国内公开发行' >国内公开发行</el-option>
-						<el-option value='港澳台刊物' >港澳台刊物</el-option>
-					</el-select><font color=red> *</font></div></td>
-			<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>卷号：</td>
-			<td class='list' colspan=1 rowspan=1 width='35%'><div id='paper.juanNumber'> 
-				<el-input  v-model="Paperform[0].P_juanNumber" name='bean.juanNumber'  id='juanNumber' size=5 maxLength = '32' ></el-input></div></td>
-		</tr>
-		<tr>
-			<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>期号：</td>
-			<td class='list' colspan=1 rowspan=1 width='35%'><div id='paper.qiNumber'> <el-input v-model="Paperform[0].P_qiNumber" name='bean.qiNumber'  id='qiNumber' size=5   maxLength = '32' ></el-input></div></td>
-			<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>页码范围：</td>
-			<td class='list' colspan=1 rowspan=1 width='35%'><div id='paper.pageScope'> <el-input v-model="Paperform[0].P_pageScope" name='bean.pageScope'  id='pageScope' size=0   maxLength = '128' ></el-input></div></td>
-		</tr>
-		<tr>
-			<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>字数：</td>
-			<td class='list' colspan=1 rowspan=1 width='35%'><div id='paper.wordNumber'> <el-input v-model="Paperform[0].P_wordNumber" name='bean.wordNumber'  id='wordNumber' size=5 value="0.0"></el-input>&nbsp;万字</div></td>
-			<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>学校署名：</td>
-			<td class='list' colspan=1 rowspan=1 width='35%'><div id='paper.schoolSign'>	
-				<el-radio v-model="Paperform[0].P_schoolSign" name='bean.schoolSign' label="第一单位" value='第一单位'  >第一单位</el-radio>
-				<el-radio v-model="Paperform[0].P_schoolSign" name='bean.schoolSign' label="非第一单位" value='非第一单位'  >非第一单位</el-radio>
-
-		</div></td>
-		</tr>
-		<tr>
-			<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>单位排名：</td>
-			<td class='list' colspan=1 rowspan=1 width='35%'><div id='paper.unitOrderId'>
-					<el-select v-model="Paperform[0].P_unitOrderId"  name='bean.unitOrderId' placeholder="请选择">
-						<el-option value='' >--请选择--</el-option>
-						<el-option value='第1' >第1</el-option>
-						<el-option value='第2' >第2</el-option>
-						<el-option value='第3' >第3</el-option>
-						<el-option value='第4' >第4</el-option>
-						<el-option value='第5' >第5</el-option>
-						<el-option value='第6' >第6</el-option>
-						<el-option value='第7' >第7</el-option>
-						<el-option value='第8' >第8</el-option>
-						<el-option value='第9' >第9</el-option>
-						<el-option value='第10' >第10</el-option>
-					</el-select>单位<font color=red> *</font></div></td>
-			<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>版面：</td>
-			<td class='list' colspan=1 rowspan=1 width='35%'><div id='paper.pageSpace'>	
-				<el-radio v-model="Paperform[0].P_pageSpace" name='bean.pageSpace' label="正常版面" value='正常版面'  >正常版面</el-radio>
-				<el-radio v-model="Paperform[0].P_pageSpace" name='bean.pageSpace' label="增刊" value='增刊'  >增刊</el-radio>
-				<el-radio v-model="Paperform[0].P_pageSpace" name='bean.pageSpace' label="年刊" value='年刊'  >年刊</el-radio>
-				<el-radio v-model="Paperform[0].P_pageSpace" name='bean.pageSpace' label="专刊" value='专刊'  >专刊</el-radio>
-
-			</div></td>
-		</tr>
-		<tr>
-			<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>是否为译文：</td>
-			<td class='list' colspan=1 rowspan=1 width='35%'><div id='paper.isTranslated'>	
-				<el-radio v-model="Paperform[0].P_isTranslated" name='bean.isTranslatelabel' label="否" value='否'  >否</el-radio>
-				<el-radio v-model="Paperform[0].P_isTranslated" name='bean.isTranslatelabel' label="是" value='是'  >是</el-radio>
-
-			</div></td>
-			<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>ISSN号：</td>
-			<td class='list' colspan=1 rowspan=1 width='35%'><div id='paper.issn'> 
-				<el-input v-model="Paperform[0].P_issn" name='bean.issn'  id='issn' size=0 maxLength = '100' ></el-input></div></td>
-		</tr>
-		<tr>
-			<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>索引号：</td>
-			<td class='list' colspan=1 rowspan=1 width='35%'><div id='paper.referenceNumber'> 
-				<el-input v-model="Paperform[0].P_referenceNumber" name='bean.referenceNumber'  id='referenceNumber' size=0></el-input></div></td>
-			<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>CN号：</td>
-			<td class='list' colspan=1 rowspan=1 width='35%'><div id='paper.cn'> 
-				<el-input v-model="Paperform[0].P_cn" name='bean.cn'  id='cn' size=0 maxLength = '100' ></el-input></div></td>
-		</tr>
-		<tr>
-			<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>是否正式出版：</td>
-			<td class='list' colspan=3 rowspan=1><div id='paper.isOfficialPublish'>	
-			<el-radio v-model="Paperform[0].P_isOfficialPublish" name='bean.isOfficialPublish' label="否" value='否'  >否</el-radio>
-			<el-radio v-model="Paperform[0].P_isOfficialPublish" name='bean.isOfficialPublish' label="是" value='是'  >是</el-radio>
-
-		<font color=red> *</font></div></td>
-		</tr>
-	</div>
-	</table>
-	</el-tab-pane>
-	<el-tab-pane label="论文作者">
-			<el-table
-				:data="tableData"
-				stripe
-				style="width: 100%">
-				<el-table-column prop="P_orderId" label="署名顺序" width="115"></el-table-column>
-				<el-table-column prop="P_authorType" label="作者类型" width="115"></el-table-column>
-				<el-table-column prop="P_authorName" label="作者姓名" width="115"></el-table-column>
-				<el-table-column prop="P_sexId" label="作者职工号" width="115"></el-table-column>
-				<el-table-column prop="P_authorCode" label="性别" width="115"></el-table-column>
-				<el-table-column prop="P_subject" label="学历" width="115"></el-table-column>
-				<el-table-column prop="P_titleId" label="职称" width="115"></el-table-column>
-				<el-table-column prop="P_authorUnit" label="是否通讯作者" width="115"></el-table-column>
-				<el-table-column prop="P_authorUnit" label="工作单位" width="115"></el-table-column>
-				<el-table-column prop="P_workRatio" label="贡献率" width="115"></el-table-column>
-			</el-table>
-	</el-tab-pane>
-</el-tabs>
-</el-card>
-
-	<el-table	
-		:data="Paperform"
-		stripe
-		class="table"
-		style="width: 100%" hidden>
-		<el-table-column prop="P_paperModeId" label="论文类型" ></el-table-column>
-		<el-table-column prop="P_name" label="论文题目" ></el-table-column>
-		<el-table-column prop="P_subjectClassId" label="学科门类" ></el-table-column>
-		<el-table-column prop="P_publishDate" label="出版时间" ></el-table-column>
-		<el-table-column prop="P_publishUnit" label="论文集" ></el-table-column>
-		<el-table-column prop="P_paperTypes" label="刊物类型" ></el-table-column>
-		<el-table-column prop="P_employType" label="收录类别" ></el-table-column>
-		<el-table-column prop="P_unitId" label="所属单位" ></el-table-column>
-		<el-table-column prop="P_subjectId" label="一级学科" ></el-table-column>
-		<el-table-column prop="P_projectSourceId" label="项目来源" ></el-table-column>
-		<el-table-column prop="P_researchClassId" label="研究类别" ></el-table-column>
-		<el-table-column prop="P_publishRangeId" label="发表范围" ></el-table-column>
-		<el-table-column prop="P_juanNumber" label="卷号" ></el-table-column>
-		<el-table-column prop="P_qiNumber" label="期号" ></el-table-column>
-		<el-table-column prop="P_pageScope" label="页码范围" ></el-table-column>
-		<el-table-column prop="P_wordNumber" label="字数" ></el-table-column>
-		<el-table-column prop="P_schoolSign" label="学校署名" ></el-table-column>
-		<el-table-column prop="P_unitOrderId" label="单位排名" ></el-table-column>
-		<el-table-column prop="P_pageSpace" label="版面" ></el-table-column>
-		<el-table-column prop="P_isTranslated" label="是否为译文" ></el-table-column>
-		<el-table-column prop="P_issn" label="ISSN号" ></el-table-column>
-		<el-table-column prop="P_referenceNumber" label="索引号" ></el-table-column>
-		<el-table-column prop="P_cn" label="CN号" ></el-table-column>
-		<el-table-column prop="P_isOfficialPublish" label="是否正式出版" ></el-table-column>
-	</el-table>
-</el-form>
+	<el-card class="box-card">
+		<!-- header -->
+		<div slot="header" class="clearfix">
+			<span style="font-weight:bold;">论文新增</span>
+			<el-button size="small"  style="float:right;" @click="getexcel">导出</el-button>
+			<!-- <el-button size="small"  style="float:right;" @click="getPaperinfo">获取</el-button> -->
+			<router-link to="/Notice"><el-button size="small"  style="float:right;">返回</el-button></router-link>
+			<el-button size="small"  style="float:right;" @click="reload" >重置</el-button>
+			<el-button size="small"  style="float:right;" @click="savePaperinfo">保存</el-button>
+		</div>
+		<!-- mainbg -->
+		<div class="mianbg">
+			<el-form ref="Paperform" :model="Paperform[0]" name="paperForm" method="post" action="/business/paper/paper.do" enctype="multipart/form-data">
+				<el-tabs type="border-card">
+					<el-tab-pane label="基本信息" >
+						<el-row :gutter="50" >
+							<el-col :span=12 :push=4 >
+								<el-form-item label="论文类型：">
+									<el-radio v-model="Paperform[0].P_paperModeId" name='bean.paperModeId' label="期刊论文" value='期刊论文' >期刊论文</el-radio>
+									<el-radio v-model="Paperform[0].P_paperModeId" name='bean.paperModeId' label="论文集" value='论文集' >论文集</el-radio>
+									<el-radio v-model="Paperform[0].P_paperModeId" name='bean.paperModeId' label="文章" value='文章' >文章</el-radio>
+									<font color=red> *</font>
+								</el-form-item>
+							</el-col>
+						</el-row>
+						<el-row :gutter="50" >
+							<el-col :span=12 :push=4 >
+								<el-form-item label="论文题目：">
+									<el-input type='text' v-model="Paperform[0].P_name" name='bean.name'  id='name' size=70   maxLength = '512' ></el-input ><font color=red> *</font>
+								</el-form-item>
+							</el-col>
+						</el-row>
+						<el-row :gutter="50" >
+							<el-col :span=12 :push=4 >
+								<el-form-item label="学科门类：">
+									<el-radio v-model="Paperform[0].P_subjectClassId" name='bean.subjectClassId' label="科技类" value='科技类'>科技类</el-radio>
+									<el-radio v-model="Paperform[0].P_subjectClassId" name='bean.subjectClassId' label="社科类" value='社科类'>社科类</el-radio>
+            			<font color=red> *</font>
+								</el-form-item>
+							</el-col>
+							<el-col :span=12 >
+								<el-form-item label="出版时间：">
+									<el-date-picker 
+										type="date" 
+										value-format="yyyy-MM-dd" 
+										@change="getTime" 
+										v-model="Paperform[0].P_publishDate" 
+										name='bean.publishDate'  
+										id='publishDate'
+										suffix-icon="el-icon-date"  
+										class="Wdate" >
+									</el-date-picker>
+								</el-form-item>
+							</el-col>
+						</el-row>
+						<el-row :gutter="50" >
+							<el-col :span=12 :push=4 >
+								<el-form-item label="论文集：">
+									<el-input type='text' v-model="Paperform[0].P_publishUnit" name='bean.publishUnit'  id='publishUnit' size=30   maxLength = '128' ></el-input >
+									<font color=red> *</font>
+								</el-form-item>
+							</el-col>
+						</el-row>
+						<el-row :gutter="50" >
+							<el-col :span=15 :push=4 >
+								<el-form-item label="刊物类型：">
+									<el-checkbox-group v-model="Paperform[0].P_paperTypes">
+										<el-checkbox label="CSSCI扩展版"></el-checkbox>
+										<el-checkbox label="CSSCI来源刊"></el-checkbox>
+										<el-checkbox label="CSSCI收录集刊"></el-checkbox>
+										<el-checkbox label="CSSCI"></el-checkbox>
+										<el-checkbox label="SCI"></el-checkbox>
+										<el-checkbox label="EI"></el-checkbox>
+										<el-checkbox label="ISTP"></el-checkbox>
+										<el-checkbox label="核心期刊"></el-checkbox>
+										<el-checkbox label="一般期刊"></el-checkbox>
+										<el-checkbox label="人大复印转载"></el-checkbox>	
+										<el-checkbox label="T类一级期刊"></el-checkbox>
+										<el-checkbox label="T类二级期刊"></el-checkbox>
+										<el-checkbox label="T类三级期刊"></el-checkbox>
+										<el-checkbox label="A类重要期刊"></el-checkbox>
+										<el-checkbox label="B类重要期刊"></el-checkbox>
+										<el-checkbox label="C类重要期刊"></el-checkbox>
+										<el-checkbox label="D类重要期刊"></el-checkbox>
+										<el-checkbox label="东莞理工学院学报"></el-checkbox>
+									</el-checkbox-group>
+								</el-form-item>
+							</el-col>
+						</el-row>
+						<el-row :gutter="50" >
+							<el-col :span=12 :push=4 >
+								<el-form-item label="收录类别：">
+									<el-checkbox-group v-model="Paperform[0].P_employType">
+									<el-checkbox label="《中国社会科学文摘》"></el-checkbox>
+									<el-checkbox label="《新华文摘》"></el-checkbox>
+									<el-checkbox label="人文社科A类重要期刊"></el-checkbox>
+									<el-checkbox label="来源刊"></el-checkbox>
+									<el-checkbox label="CSSCI"></el-checkbox>
+									<el-checkbox label="SSCI"></el-checkbox>
+									<el-checkbox label="A&HCI"></el-checkbox>
+								</el-checkbox-group>
+								</el-form-item>
+							</el-col>
+						</el-row>
+						<el-row :gutter="50" >
+							<el-col :span=12 :push=4 >
+								<el-form-item label="所属单位：">
+									<el-select v-model="Paperform[0].P_unitId"  name='bean.unitId' placeholder="请选择">
+										<el-option
+										v-for="item in P_unitIds"
+										:key="item.value"
+										:label="item.label"
+										:value="item.value">
+										</el-option>
+									</el-select>
+									<font color=red> *</font>
+								</el-form-item>
+							</el-col>
+							<el-col :span=12 >
+								<el-form-item label="一级学科：">
+									<el-select v-model="Paperform[0].P_subjectId"  name='bean.subjectId' placeholder="请选择">
+										<el-option
+										v-for="item in P_subjectIds"
+										:key="item.value"
+										:label="item.label"
+										:value="item.value">
+										</el-option>
+									</el-select>
+									<font color=red> *</font>
+								</el-form-item>
+							</el-col>
+						</el-row>
+						<el-row :gutter="50" >
+							<el-col :span=12 :push=4 >
+								<el-form-item label="项目来源：">
+									<el-select v-model="Paperform[0].P_projectSourceId"  name='bean.projectSourceId' placeholder="请选择">
+									<el-option
+									v-for="item in P_projectSourceIds"
+									:key="item.value"
+									:label="item.label"
+									:value="item.value">
+									</el-option>
+								</el-select>
+								<font color=red> *</font>
+								</el-form-item>
+							</el-col>
+							<el-col :span=12 >
+								<el-form-item label="研究类别：">
+									<el-select v-model="Paperform[0].P_researchClassId"  name='bean.researchClassId' placeholder="请选择">
+										<el-option value='' >--请选择--</el-option>
+										<el-option value='基础研究' >基础研究</el-option>
+										<el-option value='实验与发展' >实验与发展</el-option>
+										<el-option value='应用研究' >应用研究</el-option>
+									</el-select>
+									<font color=red> *</font>
+								</el-form-item>
+							</el-col>
+						</el-row>
+						<el-row :gutter="50" >
+						</el-row> 
+						<el-row :gutter="50" >
+							<el-col :span=12 :push=4 >
+								<el-form-item label="发表范围：">
+									<el-select v-model="Paperform[0].P_publishRangeId"  name='bean.publishRangeId' placeholder="请选择">
+									<el-option value='' >--请选择--</el-option>
+									<el-option value='国外学术期刊' >国外学术期刊</el-option>
+									<el-option value='国内外公开发行' >国内外公开发行</el-option>
+									<el-option value='国内公开发行' >国内公开发行</el-option>
+									<el-option value='港澳台刊物' >港澳台刊物</el-option>
+								</el-select>
+								<font color=red> *</font>
+								</el-form-item>
+							</el-col>
+							<el-col :span=12 >
+								<el-form-item label="卷号：">
+									<el-input  v-model="Paperform[0].P_juanNumber" name='bean.juanNumber'  id='juanNumber' size=5 maxLength = '32' ></el-input>
+								</el-form-item>
+							</el-col>
+						</el-row>
+						<el-row :gutter="50" >
+							<el-col :span=12 :push=4 >
+								<el-form-item label="期号：">
+									<el-input v-model="Paperform[0].P_qiNumber" name='bean.qiNumber'  id='qiNumber' size=5   maxLength = '32' ></el-input>
+								</el-form-item>
+							</el-col>
+							<el-col :span=12 >
+								<el-form-item label="页码范围：">
+									<el-input v-model="Paperform[0].P_pageScope" name='bean.pageScope'  id='pageScope' size=0   maxLength = '128' ></el-input>
+								</el-form-item>
+							</el-col>
+						</el-row>
+						<el-row :gutter="50" >
+							<el-col :span=12 :push=4 >
+								<el-form-item label="字数：">
+									<el-input v-model="Paperform[0].P_wordNumber" name='bean.wordNumber'  id='wordNumber' size=5 value="0.0"></el-input>&nbsp;万字
+								</el-form-item>
+							</el-col>
+								<el-col :span=12 >
+								<el-form-item label="学校署名：">
+									<el-radio v-model="Paperform[0].P_schoolSign" name='bean.schoolSign' label="第一单位" value='第一单位'  >第一单位</el-radio>
+									<el-radio v-model="Paperform[0].P_schoolSign" name='bean.schoolSign' label="非第一单位" value='非第一单位'  >非第一单位</el-radio>
+								</el-form-item>
+							</el-col>
+						</el-row>
+						<el-row :gutter="50" >
+							<el-col :span=12 :push=4 >
+								<el-form-item label="单位排名：">
+									<el-select v-model="Paperform[0].P_unitOrderId"  name='bean.unitOrderId' placeholder="请选择">
+										<el-option value='' >--请选择--</el-option>
+										<el-option value='第1' >第1</el-option>
+										<el-option value='第2' >第2</el-option>
+										<el-option value='第3' >第3</el-option>
+										<el-option value='第4' >第4</el-option>
+										<el-option value='第5' >第5</el-option>
+										<el-option value='第6' >第6</el-option>
+										<el-option value='第7' >第7</el-option>
+										<el-option value='第8' >第8</el-option>
+										<el-option value='第9' >第9</el-option>
+										<el-option value='第10' >第10</el-option>
+									</el-select>单位<font color=red> *</font>
+								</el-form-item>
+							</el-col>
+							<el-col :span=12 >
+								<el-form-item label="版面：">
+									<el-radio v-model="Paperform[0].P_pageSpace" name='bean.pageSpace' label="正常版面" value='正常版面'  >正常版面</el-radio>
+									<el-radio v-model="Paperform[0].P_pageSpace" name='bean.pageSpace' label="增刊" value='增刊'  >增刊</el-radio>
+									<el-radio v-model="Paperform[0].P_pageSpace" name='bean.pageSpace' label="年刊" value='年刊'  >年刊</el-radio>
+									<el-radio v-model="Paperform[0].P_pageSpace" name='bean.pageSpace' label="专刊" value='专刊'  >专刊</el-radio>
+								</el-form-item>
+							</el-col>
+						</el-row>
+						<el-row :gutter="50" >
+							<el-col :span=12 :push=4 >
+								<el-form-item label="是否为译文：">
+									<el-radio v-model="Paperform[0].P_isTranslated" name='bean.isTranslatelabel' label="否" value='否'  >否</el-radio>
+									<el-radio v-model="Paperform[0].P_isTranslated" name='bean.isTranslatelabel' label="是" value='是'  >是</el-radio>
+								</el-form-item>
+							</el-col>
+							<el-col :span=12 >
+								<el-form-item label="ISSN号：">
+									<el-input v-model="Paperform[0].P_issn" name='bean.issn'  id='issn' size=0 maxLength = '100' ></el-input>
+								</el-form-item>
+							</el-col>
+						</el-row>
+						<el-row :gutter="50" >
+							<el-col :span=12 :push=4 >
+								<el-form-item label="索引号：">
+									<el-input v-model="Paperform[0].P_referenceNumber" name='bean.referenceNumber'  id='referenceNumber' size=0></el-input>
+								</el-form-item>
+							</el-col>
+						</el-row>
+						<el-row :gutter="50" >
+							<el-col :span=12 :push=4 >
+								<el-form-item label="CN号：">
+									<el-input v-model="Paperform[0].P_cn" name='bean.cn'  id='cn' size=0 maxLength = '100' ></el-input>
+								</el-form-item>
+							</el-col>
+						</el-row>
+						<el-row :gutter="50" >
+							<el-col :span=12 :push=4 >
+								<el-form-item label="是否正式出版：">
+									<el-radio v-model="Paperform[0].P_isOfficialPublish" name='bean.isOfficialPublish' label="否" value='否'  >否</el-radio>
+									<el-radio v-model="Paperform[0].P_isOfficialPublish" name='bean.isOfficialPublish' label="是" value='是'  >是</el-radio>
+								</el-form-item>
+							</el-col>
+						</el-row>
+						</el-tab-pane>
+					<el-tab-pane label="论文作者">
+						<el-table
+							:data="tableData"
+							stripe
+							style="width: 100%">
+							<el-table-column prop="P_orderId" label="署名顺序" width="115"></el-table-column>
+							<el-table-column prop="P_authorType" label="作者类型" width="115"></el-table-column>
+							<el-table-column prop="P_authorName" label="作者姓名" width="115"></el-table-column>
+							<el-table-column prop="P_sexId" label="作者职工号" width="115"></el-table-column>
+							<el-table-column prop="P_authorCode" label="性别" width="115"></el-table-column>
+							<el-table-column prop="P_subject" label="学历" width="115"></el-table-column>
+							<el-table-column prop="P_titleId" label="职称" width="115"></el-table-column>
+							<el-table-column prop="P_authorUnit" label="是否通讯作者" width="115"></el-table-column>
+							<el-table-column prop="P_authorUnit" label="工作单位" width="115"></el-table-column>
+							<el-table-column prop="P_workRatio" label="贡献率" width="115"></el-table-column>
+						</el-table>
+				</el-tab-pane>
+				</el-tabs>
+			</el-form>
+		</div>
+		<!-- table -->
+		<el-table	
+			:data="Paperform"
+			stripe
+			class="table"
+			style="width: 100%" hidden>
+			<el-table-column prop="P_paperModeId" label="论文类型" ></el-table-column>
+			<el-table-column prop="P_name" label="论文题目" ></el-table-column>
+			<el-table-column prop="P_subjectClassId" label="学科门类" ></el-table-column>
+			<el-table-column prop="P_publishDate" label="出版时间" ></el-table-column>
+			<el-table-column prop="P_publishUnit" label="论文集" ></el-table-column>
+			<el-table-column prop="P_paperTypes" label="刊物类型" ></el-table-column>
+			<el-table-column prop="P_employType" label="收录类别" ></el-table-column>
+			<el-table-column prop="P_unitId" label="所属单位" ></el-table-column>
+			<el-table-column prop="P_subjectId" label="一级学科" ></el-table-column>
+			<el-table-column prop="P_projectSourceId" label="项目来源" ></el-table-column>
+			<el-table-column prop="P_researchClassId" label="研究类别" ></el-table-column>
+			<el-table-column prop="P_publishRangeId" label="发表范围" ></el-table-column>
+			<el-table-column prop="P_juanNumber" label="卷号" ></el-table-column>
+			<el-table-column prop="P_qiNumber" label="期号" ></el-table-column>
+			<el-table-column prop="P_pageScope" label="页码范围" ></el-table-column>
+			<el-table-column prop="P_wordNumber" label="字数" ></el-table-column>
+			<el-table-column prop="P_schoolSign" label="学校署名" ></el-table-column>
+			<el-table-column prop="P_unitOrderId" label="单位排名" ></el-table-column>
+			<el-table-column prop="P_pageSpace" label="版面" ></el-table-column>
+			<el-table-column prop="P_isTranslated" label="是否为译文" ></el-table-column>
+			<el-table-column prop="P_issn" label="ISSN号" ></el-table-column>
+			<el-table-column prop="P_referenceNumber" label="索引号" ></el-table-column>
+			<el-table-column prop="P_cn" label="CN号" ></el-table-column>
+			<el-table-column prop="P_isOfficialPublish" label="是否正式出版" ></el-table-column>
+		</el-table>
+	</el-card>
 </template>
-
 
 <script>
 	import API from '../api/api_test';
@@ -555,9 +606,9 @@
 			},
 			savePaperinfo(){
 				let that =this;
-				this.$refs.Paperform[0].validate((valid)=>{
+				this.$refs.Paperform.validate((valid)=>{
 					if(valid){
-						let para=Object.assign({},this.Paperform);
+						let para=Object.assign({},this.Paperform[0]);
 						 API.savePaperinfo(para).then(function(result){
 							 console.log(para);
 							 console.log(result);
@@ -596,7 +647,39 @@
 			reload(){
 				window.history.go(0);
 			},
-    }
+		},
+		created:function(){
+			API.getPaperinfo().then((result)=>{
+					// const that = this;
+					console.log(result);
+					let json=result[1];
+					//this.Paperform=JSON.parse(JSON.stringify(json));
+					this.Paperform[0].P_paperTypes=[json.P_paperTypes];
+					this.Paperform[0].P_employType=[json.P_employType];
+					this.Paperform[0].P_paperModeId=json.P_paperModeId;
+					this.Paperform[0].P_name=json.P_name;
+					this.Paperform[0].P_subjectClassId=json.P_subjectClassId;
+					this.Paperform[0].P_publishDate=json.P_publishDate;
+					this.Paperform[0].P_publishUnit=json.P_publishUnit;
+					this.Paperform[0].P_unitId=json.P_unitId;
+					this.Paperform[0].P_subjectId=json.P_subjectId;
+					this.Paperform[0].P_projectSourceId=json.P_projectSourceId;
+					this.Paperform[0].P_researchClassId=json.P_researchClassId;
+					this.Paperform[0].P_publishRangeId=json.P_publishRangeId;
+					this.Paperform[0].P_juanNumber=json.P_juanNumber;
+					this.Paperform[0].P_qiNumber=json.P_qiNumber;
+					this.Paperform[0].P_pageScope=json.P_pageScope;
+					this.Paperform[0].P_wordNumber=json.P_wordNumber;
+					this.Paperform[0].P_schoolSign=json.P_schoolSign;
+					this.Paperform[0].P_unitOrderId=json.P_unitOrderId;
+					this.Paperform[0].P_pageSpace=json.P_pageSpace;
+					this.Paperform[0].P_isTranslated=json.P_isTranslated;
+					this.Paperform[0].P_issn=json.P_issn;
+					this.Paperform[0].P_referenceNumber=json.P_referenceNumber;
+					this.Paperform[0].P_cn=json.P_cn;
+					this.Paperform[0].P_isOfficialPublish=json.P_isOfficialPublish;
+				})
+		}
   }
 </script>
 

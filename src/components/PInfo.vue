@@ -1,364 +1,477 @@
 <template>
-    <div>        
-<el-form ref="Pinfoform" :model="Pinfoform[0]" method="post" action="" enctype="multipart/form-data">
-<el-card class="border-card">
-	<div slot="header" class="clearfix">
-    <span>个人资料</span> 
-		<el-button size="small"  style="float:right;" @click="getexcel">导出</el-button>
-		<el-button size="small"  style="float:right;" @click="getinfo">获取</el-button>
-	  <router-link to="/Notice"><el-button size="small"  style="float:right;">返回</el-button></router-link>
-    <el-button size="small"  style="float:right;" @click="reload" >重置</el-button>
-    <el-button size="small"  style="float:right;" @click="saveinfo">保存</el-button>
-	</div>
-<div class="mainbg">
-
-	<el-tabs type="border-card">
-   <el-tab-pane label="基本信息" >
-  <table id="table" cellspacing="0" cellpadding="0" align="center">
-	<tr>
-		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>人员名称：</td>
-		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.name'>
-		<el-input name='bean.name'  id='name' size=20  v-model="Pinfoform[0].T_name"   maxLength = '40' ></el-input>	<font color=red> *</font></div></td>
-		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>职工号：</td>
-		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.account'> 
-		<el-input type='text' name='bean.account'  id='account' size='0' v-model="Pinfoform[0].T_account"  maxLength = '32' ></el-input>
-		<font color=red> *</font></div></td>
-	</tr>
-	<tr>
-		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>出生日期：</td>
-		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.birthday'>
-		<el-date-picker type='date'  value-format="yyyy-mm-dd"  name='bean.birthday'  id='birthday' size=12 v-model="Pinfoform[0].T_birthday"  placeholder="选择日期" suffix-icon="el-icon-date"  class="Wdate" ></el-date-picker><font color=red> *</font></div></td>
-		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>性别：</td>
-		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.sexId'>	
-		<el-radio v-model="Pinfoform[0].T_sexId" label="男" value="男" >男</el-radio>
-		<el-radio v-model="Pinfoform[0].T_sexId" label="女" value="女">女</el-radio>
-	<font color=red> *</font></div></td>
-	</tr>
-	<tr>
-		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>科研单位：</td>
-		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.unitId'>
-			<el-select v-model="Pinfoform[0].T_unitId"  name='bean.unitId' placeholder="请选择">
-				<el-option
-				v-for="item in T_unitIds"
-				:key="item.value"
-				:label="item.label"
-				:value="item.value">
-				</el-option>
-			</el-select>
-			<font color=red> *</font></div>
-		</td>
-		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>科研教研室：</td>
-		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.divisionId'>
-				<el-select v-model="Pinfoform[0].T_divisionId" name='bean.divisionId'  >
-					<el-option value='' >--请选择--</el-option>
-				</el-select></div></td>
-	</tr>
-	<tr>
-		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>最后学位：</td>
-		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.eduDegreeId'>
-		<el-radio v-model="Pinfoform[0].T_eduDegreeId" label="名誉博士" value="名誉博士" >名誉博士</el-radio>
-		<el-radio v-model="Pinfoform[0].T_eduDegreeId" label="博士" value="博士" >博士</el-radio>
-		<el-radio v-model="Pinfoform[0].T_eduDegreeId" label="硕士" value="硕士">硕士</el-radio><br>
-		<el-radio v-model="Pinfoform[0].T_eduDegreeId" label="学士" value="学士" >学士</el-radio>
-		<el-radio v-model="Pinfoform[0].T_eduDegreeId" label="其他" value="其他">其他</el-radio>
-		<font color=red> *</font></div>
-		</td>
-		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>最后学历：</td>
-		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.eduLevelId'>	
-	<el-radio v-model="Pinfoform[0].T_eduLevelId" label="博士研究生" value="博士研究生" >博士研究生</el-radio>
-	<el-radio v-model="Pinfoform[0].T_eduLevelId" label="硕士研究生" value="硕士研究生" >硕士研究生</el-radio>
-	<el-radio v-model="Pinfoform[0].T_eduLevelId" label="本科生" value="本科生" >本科生</el-radio><br>
-	<el-radio v-model="Pinfoform[0].T_eduLevelId" label="大专生" value="大专生" >大专生</el-radio>
-	<el-radio v-model="Pinfoform[0].T_eduLevelId" label="中专生" value="中专生" >中专生</el-radio>
-	<el-radio v-model="Pinfoform[0].T_eduLevelId" label="其他" value="其他" >其他</el-radio>
-		<font color=red> *</font></div></td>
-	</tr>
-	<tr>
-		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>职称：</td>
-		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.titleId'>
-			<el-select v-model="Pinfoform[0].T_titleId"  name='bean.titleId' placeholder="请选择">
-					<el-option
-					v-for="item in T_titleIds"
-					:key="item.value"
-					:label="item.label"
-					:value="item.value">
-					</el-option>
-				</el-select>
-			<font color=red> *</font></div>
-		</td>
-		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>岗位类型：</td>
-		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.positionType'>
-			<el-select v-model="Pinfoform[0].T_positionType"  name='bean.positionType' placeholder="请选择">
-				<el-option
-				v-for="item in T_positionTypes"
-				:key="item.value"
-				:label="item.label"
-				:value="item.value">
-				</el-option>
-			</el-select></div></td>
-	</tr>
-	<tr>
-		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>定职日期：</td>
-		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.dutyDate'> 
-	<el-date-picker type='date'  value-format="yyyy-mm-dd" :change="getTime2" name='bean.dutyDate'  id='dutyDate' size=12 v-model="Pinfoform[0].T_dutyDate"  placeholder="选择日期" suffix-icon="el-icon-date"  class="Wdate" ></el-date-picker></div></td>		
-	</tr>
-	<tr>
-		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>学术荣誉称号：</td>
-		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.honorTitleId'>	
-		<el-radio v-model="Pinfoform[0].T_honorTitleId" label="院士"  value='院士'  >院士</el-radio>
-		<el-radio v-model="Pinfoform[0].T_honorTitleId" label="突出青年"  value='突出青年'  >突出青年</el-radio><br>
-		<el-radio v-model="Pinfoform[0].T_honorTitleId" label="长江学者"  value='长江学者'  >长江学者</el-radio>
-		<el-radio v-model="Pinfoform[0].T_honorTitleId" label="其他"  value='其他'  >其他</el-radio>
-
-	</div></td>
-		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>学科门类：</td>
-		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.subjectClassId'>	
-		<el-radio v-model="Pinfoform[0].T_subjectClassId" label="科技类"  value='科技类'  >科技类</el-radio>
-		<el-radio v-model="Pinfoform[0].T_subjectClassId" label="社科类"  value='社科类'  >社科类</el-radio>
-	<font color=red> *</font></div></td>
-	</tr>
-	<tr>
-		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>是否统计：</td>
-		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.isStat'>	
-		<el-radio v-model="Pinfoform[0].T_isStat" label="否"  value='否'  >否</el-radio>
-		<el-radio v-model="Pinfoform[0].T_isStat" label="是"  value='是'  >是</el-radio>
-	<font color=red> *</font></div></td>
-		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>一级学科：</td>
-		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.subjectId'>
-			<el-select v-model="Pinfoform[0].T_subjectId"  name='bean.subjectId' placeholder="请选择">
-				<el-option
-				v-for="item in T_subjectIds"
-				:key="item.value"
-				:label="item.label"
-				:value="item.value">
-				</el-option>
-			</el-select>
-		<font color=red> *</font></div></td>
-	</tr>
-	<tr>
-		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>二级学科：</td>
-		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.subject2Id'>
-			<el-select v-model="Pinfoform[0].T_subject2Id"  name='bean.subject2Id' placeholder="请选择">
-				<el-option
-				v-for="item in T_subject2Ids"
-				:key="item.value"
-				:label="item.label"
-				:value="item.value">
-				</el-option>
-			</el-select>
-			<font color=red> *</font></div></td>
-		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>三级学科：</td>
-		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.subject3Id'>
-				<el-select v-model="Pinfoform[0].T_subject3Id"  name='bean.subject3Id'  >
-					<el-option value='' >--请选择--</el-option>
-				</el-select></div></td>
-	</tr>
-	<tr>
-		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>人事单位：</td>
-		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.hrUnitId'>
-			<el-select v-model="Pinfoform[0].T_hrUnitId"  name='bean.hrUnitId' placeholder="请选择">
-				<el-option
-				v-for="item in T_unitIds"
-				:key="item.value"
-				:label="item.label"
-				:value="item.value">
-				</el-option>
-			</el-select>
-		</div></td>
-		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>手机：</td>
-		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.mobile'>
-		<el-input v-model="Pinfoform[0].T_mobile" type='text' name='bean.mobile'  id='mobile' size='0' maxLength = '128'></el-input></div></td>
-	</tr>
-	<tr>
-		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>办公电话：</td>
-		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.telOffice'> 
-		<el-input v-model="Pinfoform[0].T_telOffice"  type='text' name='bean.telOffice'  id='telOffice' size='0' maxLength = '32'></el-input></div></td>
-		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>EMAIL：</td>
-		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.email'> 
-		<el-input v-model="Pinfoform[0].T_email" type='text' name='bean.email'  id='email' size='0' maxLength = '128' ></el-input></div></td>
-	</tr>
-	<tr>
-		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>QQ：</td>
-		<td  class='list' colspan=3 rowspan=1><div id='person.qq'> 
-		<el-input v-model="Pinfoform[0].T_qq" type='text' name='bean.qq'  id='qq' size='0' ></el-input></div></td>
-	</tr>
-	<tr>
-		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>研究方向：</td>
-		<td class='list' colspan=3 rowspan=1><div id='person.researchField'>
-		<el-input v-model="Pinfoform[0].T_researchField" type='textarea' name='bean.researchField'  id='researchField' size='0' cols=80 rows=2 ></el-input>
-		<font color=red> *</font></div></td>
-	</tr>
-	<tr>
-		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>学科方向：</td>
-		<td class='list' colspan=3 rowspan=1><div id='person.standby10'>
-		<el-input v-model="Pinfoform[0].T_standby10" type='textarea'  name='bean.standby10'   id='researchField' size='0' cols=80 rows=2 maxLength = '1000'></el-input>
-		<font color=red> *</font></div></td>
-	</tr>
-</table>
-  </el-tab-pane>
-
-
-  <el-tab-pane label="详细信息">
-		<table id="table" cellspacing="0" cellpadding="0" align="center">
- 		<tr>
-		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>英文名：</td>
-		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.nameEn'> 
-		<el-input type='text' v-model="Pinfoform[0].T_nameEn" name='bean.nameEn'  id='nameEn' size='0'   maxLength = '40' ></el-input></div></td>
-		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>政治面貌：</td>
-		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.polityId'>
-			<el-select v-model="Pinfoform[0].T_polityId"  name='bean.polityId' placeholder="请选择">
-				<el-option
-				v-for="item in T_polityIds"
-				:key="item.value"
-				:label="item.label"
-				:value="item.value">
-				</el-option>
-			</el-select><font color=red> *</font></div></td>
-	</tr>
-	<tr>
-		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>相关学科：</td>
-		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.subjectCorrelationId'>
-			<el-select v-model="Pinfoform[0].T_subjectCorrelationId"  name='bean.subjectCorrelationId' placeholder="请选择">
-				<el-option
-				v-for="item in T_subjectIds"
-				:key="item.value"
-				:label="item.label"
-				:value="item.value">
-				</el-option>
-			</el-select></div></td>
-		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>身份证号码：</td>
-		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.idCard'>
-		 <el-input v-model="Pinfoform[0].T_idCard" type='text' name='bean.idCard'  id='idCard' size='0'    maxLength = '32' ></el-input></div></td>
-	</tr>
-	<tr>
-		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>教师类别：</td>
-		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.teacherType'>
-		<el-radio v-model="Pinfoform[0].T_teacherType" label="教学" value='教学'  >教学</el-radio>
-		<el-radio v-model="Pinfoform[0].T_teacherType" label="管理" value='管理'  >管理</el-radio>
-
-	</div></td>
-		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>导师类型：</td>
-		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.tutorTypeId'>	
-		<el-radio v-model="Pinfoform[0].T_tutorTypeId" label="博导" value='博导'  >博导</el-radio>
-		<el-radio v-model="Pinfoform[0].T_tutorTypeId" label="硕导" value='硕导'  >硕导</el-radio>
-		<el-radio v-model="Pinfoform[0].T_tutorTypeId" label="非导师" value='非导师'  >非导师</el-radio>
-	</div></td>
-	</tr>
-	<tr>
-		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>聘任日期：</td>
-		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.employDate'> 
-		<el-date-picker type='date' name='bean.employDate'  id='employDate' size=12 v-model="Pinfoform[0].T_employDate"  placeholder="选择日期" suffix-icon="el-icon-date"  class="Wdate" ></el-date-picker></div></td>
-		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>行政职务：</td>
-		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.duty'> 
-		<el-input type='text' v-model="Pinfoform[0].T_duty" name='bean.duty'  id='duty' size='0' maxLength = '128' ></el-input><font color=red> *</font></div></td>
-	</tr>
-	<tr>
-		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>国籍：</td>
-		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.nationalityId'>
-				<el-select v-model="Pinfoform[0].T_nationalityId" name='bean.nationalityId'  >
-					<el-option value='' >--请选择--</el-option>
-					<el-option value='中国'>中国</el-option>
-					<el-option value='其他' >其他</el-option>
-				</el-select></div></td>
-		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>民族：</td>
-		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.nationId'>
-			<el-select v-model="Pinfoform[0].T_nationId"  name='bean.T_nationId' placeholder="请选择">
-				<el-option
-				v-for="item in T_nationIds"
-				:key="item.value"
-				:label="item.label"
-				:value="item.value">
-				</el-option>
-			</el-select></div></td>
-	</tr>
-	<tr>
-		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>家庭住址：</td>
-		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.address'> <el-input type='text' v-model="Pinfoform[0].T_address" name='bean.address'  id='address' size='0'    maxLength = '256' ></el-input></div></td>
-		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>邮政编码：</td>
-		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.postalCode'> <el-input type='text' v-model="Pinfoform[0].T_postalCode" name='bean.postalCode'  id='postalCode' size=6    maxLength = '32'></el-input></div></td>
-	</tr>
-	<tr>
-		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>住宅电话：</td>
-		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.telHome'> <el-input type='text' v-model="Pinfoform[0].T_telHome" name='bean.telHome'  id='telHome' size='0'    maxLength = '128'></el-input></div></td>
-		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>办公传真：</td>
-		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.faxOffice'> <el-input type='text' v-model="Pinfoform[0].T_faxOffice" name='bean.faxOffice'  id='faxOffice' size='0'    maxLength = '32'></el-input></div></td>
-	</tr>
-	<tr>
-		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>个人网址：</td>
-		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.personalWebSite'> <el-input type='text' v-model="Pinfoform[0].T_personalWebSite" name='bean.personalWebSite'  id='personalWebSite' size='0'    maxLength = '128' ></el-input></div></td>
-		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>在职情况：</td>
-		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.personState'>	
-		<el-radio v-model="Pinfoform[0].T_personState" name='bean.personState' label="在职" value='在职' >在职</el-radio>
-		<el-radio v-model="Pinfoform[0].T_personState" name='bean.personState' label="退休" value='退休'  >退休</el-radio>
-
-	</div></td>
-	</tr>
-	<tr>
-		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>第一外语：</td>
-		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.language1Id'>
-				<el-select v-model="Pinfoform[0].T_language1Id"  name='bean.T_language1Id' placeholder="请选择">
-				<el-option
-				v-for="item in T_language1Ids"
-				:key="item.value"
-				:label="item.label"
-				:value="item.value">
-				</el-option>
-			</el-select></div></td>
-		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>第二外语：</td>
-		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.language2Id'>
-				<el-select v-model="Pinfoform[0].T_language2Id"  name='bean.T_language2Id' placeholder="请选择">
-				<el-option
-				v-for="item in T_language1Ids"
-				:key="item.value"
-				:label="item.label"
-				:value="item.value">
-				</el-option>
-			</el-select></div></td>
-	</tr>
-	<tr>
-		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>第一外语程度：</td>
-		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.languageLevel1Id'>	
-		<el-radio v-model="Pinfoform[0].T_languageLevel1Id" name='bean.languageLevel1Id' label="精通" value='精通'  >精通</el-radio>
-		<el-radio v-model="Pinfoform[0].T_languageLevel1Id" name='bean.languageLevel1Id' label="熟练" value='熟练'  >熟练</el-radio><br>
-		<el-radio v-model="Pinfoform[0].T_languageLevel1Id" name='bean.languageLevel1Id' label="良好" value='良好'  >良好</el-radio>
-		<el-radio v-model="Pinfoform[0].T_languageLevel1Id" name='bean.languageLevel1Id' label="一般" value='一般'  >一般</el-radio>
-
-	</div></td>
-		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>第二外语程度：</td>
-		<td class='list' colspan=1 rowspan=1 width='35%'><div id='person.languageLevel2Id'>	
-		<el-radio v-model="Pinfoform[0].T_languageLevel2Id" name='bean.languageLevel2Id' label="精通" value='精通'  >精通</el-radio>
-		<el-radio v-model="Pinfoform[0].T_languageLevel2Id" name='bean.languageLevel2Id' label="熟练" value='熟练'  >熟练</el-radio><br>
-		<el-radio v-model="Pinfoform[0].T_languageLevel2Id" name='bean.languageLevel2Id' label="良好" value='良好'  >良好</el-radio>
-		<el-radio v-model="Pinfoform[0].T_languageLevel2Id" name='bean.languageLevel2Id' label="一般" value='一般'  >一般</el-radio>
-	</div></td>
-	</tr>
-	<tr>
-		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>毕业院校信息：</td>
-		<td class='list' colspan=3 rowspan=1><div id='person.graduateSchool'><el-input type="textarea" v-model="this.Pinfoform[0].T_graduateSchool" name='bean.graduateSchool' cols=70 rows=5  ></el-input></div></td>
-	</tr>
-	<tr>
-		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>进修情况：</td>
-		<td class='list' colspan=3 rowspan=1><div id='person.learning'><el-input type="textarea" v-model="this.Pinfoform[0].T_learning" name='bean.learning' cols=70 rows=5  ></el-input></div></td>
-	</tr>
-	<tr>
-		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>出国经历：</td>
-		<td class='list' colspan=3 rowspan=1><div id='person.experienceAbroad'><el-input type="textarea" v-model="this.Pinfoform[0].T_experienceAbroad" name='bean.experienceAbroad' cols=70 rows=5  ></el-input></div></td>
-	</tr>
-	<tr>
-		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>学术兼职：</td>
-		<td class='list' colspan=3 rowspan=1><div id='person.parttime'><el-input type="textarea" v-model="this.Pinfoform[0].T_parttime" name='bean.parttime' cols=70 rows=5  ></el-input></div></td>
-	</tr>
-	<tr>
-		<td class='tdrowhead' colspan=1 rowspan=1 width='15%'>学术特长：</td>
-		<td class='list' colspan=3 rowspan=1><div id='person.learnSpecialty'><el-input type="textarea" v-model="this.Pinfoform[0].T_learnSpecialty" name='bean.learnSpecialty' cols=70 rows=5  ></el-input></div></td>
-	</tr>
-
-		</table>
-  </el-tab-pane>
-</el-tabs>
-</div>
-</el-card>
-	<el-table class="table" :data="Pinfoform" border style="width: 100%" hidden>
+	<el-card class="border-card">
+		<!-- header -->
+		<div slot="header" class="clearfix">
+			<span>个人资料</span> 
+			<el-button size="large"  style="float:right;" @click="getexcel">导出</el-button>
+			<!-- <el-button size="large"  style="float:right;" @click="getinfo">获取</el-button> -->
+			<router-link to="/Notice"><el-button size="large"  style="float:right;">返回</el-button></router-link>
+			<el-button size="large"  style="float:right;" @click="reload" >重置</el-button>
+			<el-button size="large"  style="float:right;" @click="savepinfo">保存</el-button>
+		</div>
+		<!-- mainbg -->
+		<div class="mainbg">
+			<el-form ref="Pinfoform" :model="Pinfoform[0]" method="post" action="" enctype="multipart/form-data">
+				<el-tabs type="border-card">
+					<el-tab-pane label="基本信息" >
+						<el-row :gutter="50">
+							<el-col :span=12 :push=3>
+								<el-form-item label="人员名称：">
+									<el-input name='bean.name'  id='name' v-model="Pinfoform[0].T_name" maxLength = '40' required></el-input>								
+									<font color=red> *</font>
+								</el-form-item>
+							</el-col>
+							<el-col :span=12 >
+								<el-form-item label="职工号：">
+									<el-input type='text' name='bean.account' id='account' v-model="Pinfoform[0].T_account" maxLength = '32' required></el-input>
+									<font color=red> *</font>
+								</el-form-item>
+							</el-col>
+						</el-row>
+						<el-row :gutter="50">
+							<el-col :span=12 :push=3>
+								<el-form-item label="出生日期：">
+									<el-date-picker 
+										type='date'  
+										value-format="yyyy-MM-dd" 
+										name='bean.birthday' 
+										id='birthday' 
+										v-model="Pinfoform[0].T_birthday" 
+										suffix-icon="el-icon-date"  
+										class="Wdate" required>
+									</el-date-picker>
+									<font color=red> *</font>
+								</el-form-item>
+							</el-col>
+							<el-col :span=12 >
+								<el-form-item label="性别：">
+									<el-radio v-model="Pinfoform[0].T_sexId" label="男" value="男" >男</el-radio>
+									<el-radio v-model="Pinfoform[0].T_sexId" label="女" value="女">女</el-radio>
+									<font color=red> *</font>
+								</el-form-item>
+							</el-col>
+						</el-row>
+						<el-row :gutter="50">
+							<el-col :span=12 :push=3>
+								<el-form-item label="科研单位：">
+									<el-select v-model="Pinfoform[0].T_unitId"  name='bean.unitId' placeholder="请选择">
+										<el-option
+										v-for="item in T_unitIds"
+										:key="item.value"
+										:label="item.label"
+										:value="item.value">
+										</el-option>
+									</el-select>
+									<font color=red> *</font>
+								</el-form-item>
+							</el-col>
+							<el-col :span=12>
+								<el-form-item label="科研教研室：">
+									<el-select v-model="Pinfoform[0].T_divisionId" name='bean.divisionId'  >
+										<el-option value='' >--请选择--</el-option>
+									</el-select>
+								</el-form-item>
+							</el-col>
+						</el-row>
+						<el-row :gutter="50">
+							<el-col :span=12 :push=3>
+								<el-form-item label="最后学位：">
+									<el-radio v-model="Pinfoform[0].T_eduDegreeId" label="名誉博士" value="名誉博士" >名誉博士</el-radio>
+									<el-radio v-model="Pinfoform[0].T_eduDegreeId" label="博士" value="博士" >博士</el-radio>
+									<el-radio v-model="Pinfoform[0].T_eduDegreeId" label="硕士" value="硕士">硕士</el-radio>
+									<el-radio v-model="Pinfoform[0].T_eduDegreeId" label="学士" value="学士" >学士</el-radio>
+									<el-radio v-model="Pinfoform[0].T_eduDegreeId" label="其他" value="其他">其他</el-radio>
+									<font color=red> *</font>
+								</el-form-item>
+							</el-col>
+							<el-col :span=12>
+								<el-form-item label="最后学历：">
+									<el-radio v-model="Pinfoform[0].T_eduLevelId" label="博士研究生" value="博士研究生" >博士研究生</el-radio>
+									<el-radio v-model="Pinfoform[0].T_eduLevelId" label="硕士研究生" value="硕士研究生" >硕士研究生</el-radio>
+									<el-radio v-model="Pinfoform[0].T_eduLevelId" label="本科生" value="本科生" >本科生</el-radio>
+									<el-radio v-model="Pinfoform[0].T_eduLevelId" label="大专生" value="大专生" >大专生</el-radio>
+									<el-radio v-model="Pinfoform[0].T_eduLevelId" label="中专生" value="中专生" >中专生</el-radio>
+									<el-radio v-model="Pinfoform[0].T_eduLevelId" label="其他" value="其他" >其他</el-radio>
+									<font color=red> *</font>
+								</el-form-item>
+							</el-col>
+						</el-row>
+						<el-row :gutter="50">
+							<el-col :span=12 :push=3>
+								<el-form-item label="职称：">
+									<el-select v-model="Pinfoform[0].T_titleId"  name='bean.titleId' placeholder="请选择">
+										<el-option
+										v-for="item in T_titleIds"
+										:key="item.value"
+										:label="item.label"
+										:value="item.value">
+										</el-option>
+									</el-select>
+									<font color=red> *</font>
+								</el-form-item>
+							</el-col>
+							<el-col :span=12>
+								<el-form-item label="岗位类型：">
+									<el-select v-model="Pinfoform[0].T_positionType"  name='bean.positionType' placeholder="请选择">
+										<el-option
+										v-for="item in T_positionTypes"
+										:key="item.value"
+										:label="item.label"
+										:value="item.value">
+										</el-option>
+									</el-select>
+								</el-form-item>
+							</el-col>
+						</el-row>
+						<el-row :gutter="50">
+							<el-col :span=12 :push=3>
+								<el-form-item label="定职日期：">
+									<el-date-picker 
+										type='date'  	
+										value-format="yyyy-MM-dd" 
+										:change="getTime2" 
+										name='bean.dutyDate'  
+										id='dutyDate' 
+										v-model="Pinfoform[0].T_dutyDate"  
+										suffix-icon="el-icon-date"  
+										class="Wdate" >
+									</el-date-picker>
+								</el-form-item>
+							</el-col>
+							<el-col :span=12>
+								<el-form-item label="学术荣誉称号：">
+									<el-radio v-model="Pinfoform[0].T_honorTitleId" label="院士"  value='院士'  >院士</el-radio>
+									<el-radio v-model="Pinfoform[0].T_honorTitleId" label="突出青年"  value='突出青年'  >突出青年</el-radio>
+									<el-radio v-model="Pinfoform[0].T_honorTitleId" label="长江学者"  value='长江学者'  >长江学者</el-radio>
+									<el-radio v-model="Pinfoform[0].T_honorTitleId" label="其他"  value='其他'  >其他</el-radio>
+								</el-form-item>
+							</el-col>
+						</el-row>
+						<el-row :gutter="50">
+							<el-col :span=12 :push=3>
+								<el-form-item label="学科门类：">
+									<el-radio v-model="Pinfoform[0].T_subjectClassId" label="科技类"  value='科技类'  required>科技类</el-radio>
+									<el-radio v-model="Pinfoform[0].T_subjectClassId" label="社科类"  value='社科类'  required>社科类</el-radio>
+									<font color=red> *</font>
+								</el-form-item>
+							</el-col>
+						</el-row>
+						<el-row :gutter="50">
+							<el-col :span=12 :push=3>
+								<el-form-item label="是否统计：">
+									<el-radio v-model="Pinfoform[0].T_isStat" label="否"  value='否'  >否</el-radio>
+									<el-radio v-model="Pinfoform[0].T_isStat" label="是"  value='是'  >是</el-radio>
+									<font color=red> *</font>
+								</el-form-item>
+							</el-col>
+							<el-col :span=12>
+								<el-form-item label="一级学科：">
+									<el-select v-model="Pinfoform[0].T_subjectId"  name='bean.subjectId' placeholder="请选择">
+										<el-option
+										v-for="item in T_subjectIds"
+										:key="item.value"
+										:label="item.label"
+										:value="item.value">
+										</el-option>
+									</el-select>
+									<font color=red> *</font>
+								</el-form-item>
+							</el-col>
+						</el-row>
+						<el-row :gutter="50">
+							<el-col :span=12 :push=3>
+								<el-form-item label="二级学科：">
+									<el-select v-model="Pinfoform[0].T_subject2Id"  name='bean.subject2Id' placeholder="请选择">
+										<el-option
+										v-for="item in T_subject2Ids"
+										:key="item.value"
+										:label="item.label"
+										:value="item.value">
+										</el-option>
+									</el-select>
+									<font color=red> *</font>
+								</el-form-item>
+							</el-col>
+							<el-col :span=12>
+								<el-form-item label="三级学科：">
+									<el-select v-model="Pinfoform[0].T_subject3Id"  name='bean.subject3Id'  >
+										<el-option value='' >--请选择--</el-option>
+									</el-select>
+								</el-form-item>
+							</el-col>
+						</el-row>
+						<el-row :gutter="50">
+							<el-col :span=12 :push=3>
+								<el-form-item label="人事单位：">
+									<el-select v-model="Pinfoform[0].T_hrUnitId"  name='bean.hrUnitId' placeholder="请选择">
+										<el-option
+										v-for="item in T_unitIds"
+										:key="item.value"
+										:label="item.label"
+										:value="item.value">
+										</el-option>
+									</el-select>
+								</el-form-item>
+							</el-col>
+							<el-col :span=12>
+								<el-form-item label="手机：">
+									<el-input v-model="Pinfoform[0].T_mobile" type='text' name='bean.mobile'  id='mobile' size='0' maxLength = '128'></el-input>
+								</el-form-item>
+							</el-col>
+						</el-row>
+						<el-row :gutter="50">
+							<el-col :span=12 :push=3>
+								<el-form-item label="办公电话：">
+									<el-input v-model="Pinfoform[0].T_telOffice"  type='text' name='bean.telOffice'  id='telOffice' size='0' maxLength = '32'></el-input>
+								</el-form-item>
+							</el-col>
+							<el-col :span=12>
+								<el-form-item label="EMAIL：">
+									<el-input v-model="Pinfoform[0].T_email" type='text' name='bean.email'  id='email' size='0' maxLength = '128' ></el-input>
+								</el-form-item>
+							</el-col>
+						</el-row>
+						<el-row :gutter="50">
+							<el-col :span=12 :push=3>
+								<el-form-item label="QQ：">
+									<el-input v-model="Pinfoform[0].T_qq" type='text' name='bean.qq'  id='qq' size='0' ></el-input>
+								</el-form-item>
+							</el-col>
+						</el-row>
+						<el-row :gutter="50">
+							<el-col :span=12 :push=3>
+								<el-form-item label="研究方向：">
+									<el-input v-model="Pinfoform[0].T_researchField" type='textarea' name='bean.researchField'  id='researchField' size='0' cols=80 rows=2 ></el-input>
+								</el-form-item>
+							</el-col>
+						</el-row>
+						<el-row :gutter="50">
+							<el-col :span=12 :push=3>
+								<el-form-item label="学科方向：">
+									<el-input v-model="Pinfoform[0].T_standby10" type='textarea'  name='bean.standby10'   id='researchField' size='0' cols=80 rows=2 maxLength = '1000'></el-input>
+								</el-form-item>
+							</el-col>
+						</el-row>
+					</el-tab-pane>
+					<el-tab-pane label="详细信息">					
+						<el-row :gutter="50">
+							<el-col :span=12 :push=3>
+								<el-form-item label="英文名：">
+									<el-input type='text' v-model="Pinfoform[0].T_nameEn" name='bean.nameEn'  id='nameEn' size='0'   maxLength = '40' ></el-input>
+								</el-form-item>
+							</el-col>
+							<el-col :span=12>
+								<el-form-item label="政治面貌：">
+									<el-select v-model="Pinfoform[0].T_polityId"  name='bean.polityId' placeholder="请选择">
+										<el-option
+										v-for="item in T_polityIds"
+										:key="item.value"
+										:label="item.label"
+										:value="item.value">
+										</el-option>
+									</el-select>
+									<font color=red> *</font>
+								</el-form-item>
+							</el-col>
+						</el-row>
+						<el-row :gutter="50">
+							<el-col :span=12 :push=3>
+								<el-form-item label="相关学科：">
+									<el-select v-model="Pinfoform[0].T_subjectCorrelationId"  name='bean.subjectCorrelationId' placeholder="请选择">
+										<el-option
+										v-for="item in T_subjectIds"
+										:key="item.value"
+										:label="item.label"
+										:value="item.value">
+										</el-option>
+									</el-select>
+								</el-form-item>
+							</el-col>
+							<el-col :span=12>
+								<el-form-item label="身份证号码：">
+									<el-input v-model="Pinfoform[0].T_idCard" type='text' name='bean.idCard'  id='idCard' size='0'    maxLength = '32' ></el-input>
+								</el-form-item>
+							</el-col>
+						</el-row>
+						<el-row :gutter="50">
+							<el-col :span=12 :push=3>
+								<el-form-item label="教师类别：">
+									<el-radio v-model="Pinfoform[0].T_teacherType" label="教学" value='教学'  >教学</el-radio>
+									<el-radio v-model="Pinfoform[0].T_teacherType" label="管理" value='管理'  >管理</el-radio>
+								</el-form-item>
+							</el-col>
+							<el-col :span=12>
+								<el-form-item label="导师类型：">
+									<el-radio v-model="Pinfoform[0].T_tutorTypeId" label="博导" value='博导'  >博导</el-radio>
+									<el-radio v-model="Pinfoform[0].T_tutorTypeId" label="硕导" value='硕导'  >硕导</el-radio>
+									<el-radio v-model="Pinfoform[0].T_tutorTypeId" label="非导师" value='非导师'  >非导师</el-radio>
+								</el-form-item>
+							</el-col>
+						</el-row>
+						<el-row :gutter="50">
+							<el-col :span=12 :push=3>
+								<el-form-item label="聘任日期：">
+									<el-date-picker 
+										type='date' 
+										name='bean.employDate'  
+										id='employDate'
+										v-model="Pinfoform[0].T_employDate"
+										suffix-icon="el-icon-date"  
+										class="Wdate" >
+									</el-date-picker>
+								</el-form-item>
+							</el-col>
+							<el-col :span=12>
+								<el-form-item label="行政职务：">
+									<el-input type='text' v-model="Pinfoform[0].T_duty" name='bean.duty'  id='duty' size='0' maxLength = '128' ></el-input><font color=red> *</font>
+								</el-form-item>
+							</el-col>
+						</el-row>
+						<el-row :gutter="50">
+							<el-col :span=12 :push=3>
+								<el-form-item label="国籍：">
+									<el-select v-model="Pinfoform[0].T_nationalityId" name='bean.nationalityId'  >
+										<el-option value='' >--请选择--</el-option>
+										<el-option value='中国'>中国</el-option>
+										<el-option value='其他' >其他</el-option>
+									</el-select>
+								</el-form-item>
+							</el-col>
+							<el-col :span=12>
+								<el-form-item label="民族：">
+									<el-select v-model="Pinfoform[0].T_nationId"  name='bean.T_nationId' placeholder="请选择">
+										<el-option
+										v-for="item in T_nationIds"
+										:key="item.value"
+										:label="item.label"
+										:value="item.value">
+										</el-option>
+									</el-select>
+								</el-form-item>
+							</el-col>
+						</el-row>
+						<el-row :gutter="50">
+							<el-col :span=12 :push=3>
+								<el-form-item label="家庭住址：">
+									<el-input type='text' v-model="Pinfoform[0].T_address" name='bean.address'  id='address' size='0'    maxLength = '256' ></el-input>
+								</el-form-item>
+							</el-col>
+							<el-col :span=12>
+								<el-form-item label="邮政编码：">
+									<el-input type='text' v-model="Pinfoform[0].T_postalCode" name='bean.postalCode'  id='postalCode' size=6    maxLength = '32'></el-input>
+								</el-form-item>
+							</el-col>
+						</el-row>
+						<el-row :gutter="50">
+							<el-col :span=12 :push=3>
+								<el-form-item label="住宅电话：">
+									<el-input type='text' v-model="Pinfoform[0].T_telHome" name='bean.telHome'  id='telHome' size='0'    maxLength = '128'></el-input>
+								</el-form-item>
+							</el-col>
+							<el-col :span=12>
+								<el-form-item label="办公传真：">
+									<el-input type='text' v-model="Pinfoform[0].T_faxOffice" name='bean.faxOffice'  id='faxOffice' size='0'    maxLength = '32'></el-input>
+								</el-form-item>
+							</el-col>
+						</el-row>
+						<el-row :gutter="50">
+							<el-col :span=12 :push=3>
+								<el-form-item label="个人网址：">
+									<el-input type='text' v-model="Pinfoform[0].T_personalWebSite" name='bean.personalWebSite'  id='personalWebSite' size='0'    maxLength = '128' ></el-input>
+								</el-form-item>
+							</el-col>
+							<el-col :span=12>
+								<el-form-item label="在职情况：">
+									<el-radio v-model="Pinfoform[0].T_personState" name='bean.personState' label="在职" value='在职' >在职</el-radio>
+									<el-radio v-model="Pinfoform[0].T_personState" name='bean.personState' label="退休" value='退休'  >退休</el-radio>
+								</el-form-item>
+							</el-col>
+						</el-row>
+						<el-row :gutter="50">
+							<el-col :span=12 :push=3>
+								<el-form-item label="第一外语：">
+									<el-select v-model="Pinfoform[0].T_language1Id"  name='bean.T_language1Id' placeholder="请选择">
+										<el-option
+										v-for="item in T_language1Ids"
+										:key="item.value"
+										:label="item.label"
+										:value="item.value">
+										</el-option>
+									</el-select>
+								</el-form-item>
+							</el-col>
+							<el-col :span=12>
+								<el-form-item label="第二外语：">
+									<el-select v-model="Pinfoform[0].T_language2Id"  name='bean.T_language2Id' placeholder="请选择">
+										<el-option
+										v-for="item in T_language1Ids"
+										:key="item.value"
+										:label="item.label"
+										:value="item.value">
+										</el-option>
+									</el-select>
+								</el-form-item>
+							</el-col>
+						</el-row>
+						<el-row :gutter="50">
+							<el-col :span=12 :push=3>
+								<el-form-item label="第一外语程度：">
+									<el-radio v-model="Pinfoform[0].T_languageLevel1Id" name='bean.languageLevel1Id' label="精通" value='精通'  >精通</el-radio>
+									<el-radio v-model="Pinfoform[0].T_languageLevel1Id" name='bean.languageLevel1Id' label="熟练" value='熟练'  >熟练</el-radio>
+									<el-radio v-model="Pinfoform[0].T_languageLevel1Id" name='bean.languageLevel1Id' label="良好" value='良好'  >良好</el-radio>
+									<el-radio v-model="Pinfoform[0].T_languageLevel1Id" name='bean.languageLevel1Id' label="一般" value='一般'  >一般</el-radio>
+								</el-form-item>
+							</el-col>
+							<el-col :span=12>
+								<el-form-item label="第二外语程度：">
+									<el-radio v-model="Pinfoform[0].T_languageLevel2Id" name='bean.languageLevel2Id' label="精通" value='精通'  >精通</el-radio>
+									<el-radio v-model="Pinfoform[0].T_languageLevel2Id" name='bean.languageLevel2Id' label="熟练" value='熟练'  >熟练</el-radio>
+									<el-radio v-model="Pinfoform[0].T_languageLevel2Id" name='bean.languageLevel2Id' label="良好" value='良好'  >良好</el-radio>
+									<el-radio v-model="Pinfoform[0].T_languageLevel2Id" name='bean.languageLevel2Id' label="一般" value='一般'  >一般</el-radio>
+								</el-form-item>
+							</el-col>
+						</el-row>
+						<el-row :gutter="50">
+							<el-col :span=12 :push=3>
+								<el-form-item label="毕业院校信息：">
+									<el-input type="textarea" v-model="this.Pinfoform[0].T_graduateSchool" name='bean.graduateSchool' cols=80 rows=5  ></el-input>
+								</el-form-item>
+							</el-col>
+						</el-row>
+						<el-row :gutter="50">
+							<el-col :span=12 :push=3>
+								<el-form-item label="进修情况：">
+									<el-input type="textarea" v-model="this.Pinfoform[0].T_learning" name='bean.learning' cols=80 rows=5  ></el-input>
+								</el-form-item>
+							</el-col>
+						</el-row>
+						<el-row :gutter="50">
+							<el-col :span=12 :push=3>
+								<el-form-item label="出国经历：">
+									<el-input type="textarea" v-model="this.Pinfoform[0].T_experienceAbroad" name='bean.experienceAbroad' cols=80 rows=5  ></el-input>
+								</el-form-item>
+							</el-col>
+						</el-row>
+						<el-row :gutter="50">
+							<el-col :span=12 :push=3>
+								<el-form-item label="学术兼职：">
+									<el-input type="textarea" v-model="this.Pinfoform[0].T_parttime" name='bean.parttime' cols=80 rows=5  ></el-input>
+								</el-form-item>
+							</el-col>
+						</el-row>
+						<el-row :gutter="50">
+							<el-col :span=12 :push=3>
+								<el-form-item label="学术特长：">
+									<el-input type="textarea" v-model="this.Pinfoform[0].T_learnSpecialty" name='bean.learnSpecialty' cols=80 rows=5  ></el-input>
+								</el-form-item>
+							</el-col>
+						</el-row>
+					</el-tab-pane>	
+				</el-tabs>
+			</el-form>
+		</div>
+		<!-- table -->
+		<el-table class="table" :data="Pinfoform" border style="width: 100%" hidden>
 			<el-table-column prop="T_name" label="人员名称"></el-table-column>
 			<el-table-column prop="T_account" label="职工号"></el-table-column>
 			<el-table-column prop="T_birthday" label="出生日期"></el-table-column>
@@ -409,9 +522,7 @@
 			<el-table-column prop="T_parttime" label="学术兼职"></el-table-column>
 			<el-table-column prop="T_learnSpecialty" label="学术特长"></el-table-column>
 		</el-table>
-</el-form>
-</div>
-
+	</el-card>
 </template>
 
 <script>
@@ -822,8 +933,8 @@
 				};
     },
     methods: {
-      handleSelect(key, keyPath) {
-        console.log(key, keyPath);
+     		handleSelect(key, keyPath) {
+        		console.log(key, keyPath);
 			},
 			getTime(val){
 				this.Pinfoform[0].T_birthday=val;
@@ -831,12 +942,67 @@
 			getTime2(val){
 				this.Pinfoform[0].T_dutyDate=val;
 			},
-			//获取默认信息
-			getinfo(){
-				API.test().then((result)=>{
-					console.log(result);
-					let json=result[0];
-					//this.Pinfoform[0]=JSON.parse(JSON.stringify(json));
+			reload(){
+				window.history.go(0);
+			},
+			savepinfo(){
+				let that =this;
+				this.$refs.Pinfoform.validate((valid)=>{
+					if(valid){
+						let para=Object.assign({},this.Pinfoform[0]);
+						API.savepinfo(para).then(function(result){
+							 if(result&&parseInt(result.errcode)===0){
+								console.log(result);
+								that.$message.success({showClose: true, message: '保存成功', duration: 2000});
+								that.reload();
+							 }else{
+								that.$message.error({showClose: true, message: '保存失败', duration: 2000});
+							 }
+						},(err)=>{
+							that.$message.error({showClose: true, message: err.toString(), duration: 2000});
+						}).catch((error)=>{
+							console.log(error);
+              				that.$message.error({showClose: true, message: '请求出现异常', duration: 2000});
+						});
+					}
+				});
+			},
+			getexcel(){
+				 // 设置当前日期
+				let time = new Date();
+				let year = time.getFullYear();
+				let month = time.getMonth() + 1;
+				let day = time.getDate();
+				let name = year + "" + month + "" + day;
+				// console.log(name)
+				/* generate workbook object from table */
+				//  .table要导出的是哪一个表格
+				var wb = XLSX.utils.table_to_book(document.querySelector(".table"));
+				/* get binary string as output */
+				var wbout = XLSX.write(wb, {
+					bookType: "xlsx",
+					bookSST: true,
+					type: "array"
+				});
+				try {
+					//  name+'.xlsx'表示导出的excel表格名字
+					FileSaver.saveAs(
+						new Blob([wbout], { type: "application/octet-stream" }),
+						name + ".xlsx"
+					);
+				} catch (e) {
+					if (typeof console !== "undefined") console.log(e, wbout);
+				}
+				return wbout;
+			},
+		},
+		created:function(){
+			API.getpinfo().then((result)=>{
+				console.log(result);
+				let json=result[0];
+				console.log(json);
+				//this.Pinfoform[0]=JSON.parse(JSON.stringify(json));
+				if(json){
 					this.Pinfoform[0].T_name=json.T_name;
 					this.Pinfoform[0].T_account=json.T_account;
 					this.Pinfoform[0].T_birthday=json.T_birthday;
@@ -887,52 +1053,15 @@
 					this.Pinfoform[0].T_parttime=json.T_parttime;
 					this.Pinfoform[0].T_learnSpecialty=json.T_learnSpecialty;
 					this.Pinfoform[0].T_divisionId=json.T_divisionId;
-				})
-			},
-			saveinfo(){
-				let that =this;
-				this.$refs.Pinfoform.validate((valid)=>{
-					if(valid){
-						let para=Object.assign({},this.Pinfoform[0]);
-						 API.saveinfo(para).then(function(result){
-							 console.log(result);
-						 })
-					}
 				}
-			)},
-			getexcel(){
-				 // 设置当前日期
-				let time = new Date();
-				let year = time.getFullYear();
-				let month = time.getMonth() + 1;
-				let day = time.getDate();
-				let name = year + "" + month + "" + day;
-				// console.log(name)
-				/* generate workbook object from table */
-				//  .table要导出的是哪一个表格
-				var wb = XLSX.utils.table_to_book(document.querySelector(".table"));
-				/* get binary string as output */
-				var wbout = XLSX.write(wb, {
-					bookType: "xlsx",
-					bookSST: true,
-					type: "array"
-				});
-				try {
-					//  name+'.xlsx'表示导出的excel表格名字
-					FileSaver.saveAs(
-						new Blob([wbout], { type: "application/octet-stream" }),
-						name + ".xlsx"
-					);
-				} catch (e) {
-					if (typeof console !== "undefined") console.log(e, wbout);
-				}
-				return wbout;
-			},
-			reload(){
-				window.history.go(0);
-			},
-    }
-  }
+			},(err)=>{
+				that.$message.error({showClose: true, message: err.toString(), duration: 2000});
+			}).catch((error)=>{
+				console.log(error);
+          		that.$message.error({showClose: true, message: '请求出现异常', duration: 2000});
+			});
+	}
+	}
 </script>
 
 
@@ -948,9 +1077,5 @@ tr{
 	left:100px;
 	height:70px;
 }
-
 </style>
 
-	
-	
-	

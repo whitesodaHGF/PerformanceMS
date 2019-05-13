@@ -18,7 +18,7 @@ import PaperSearch from '.././components/PaperSearch.vue'
 import ProjectSeach from '.././components/ProjectSeach.vue'
 import Projectadd from '.././components/Projectadd.vue'
 import Projectapply from '.././components/Projectapply.vue'
-import Projectall from '.././components/Projectall.vue'
+import Projectlist from '.././components/Projectlist.vue'
 import Projectchange from '.././components/Projectchange.vue'
 import Mycourse from '.././components/Mycourse.vue'
 import Mycourseadd from '.././components/Mycourseadd.vue'
@@ -91,9 +91,9 @@ const routes = [
     component: Projectapply
   },
   {
-    path: '/Projectall',
-    name: 'Projectall',
-    component: Projectall
+    path: '/Projectlist',
+    name: 'Projectlist',
+    component: Projectlist
   },
   {
     path: '/Projectchange',

@@ -177,7 +177,6 @@
 				</el-row>
 			</el-form>
 		</div>
-		<!-- table -->
 		<el-table class="table" :data="Unitform" border style="width: 100%" hidden>
 			<el-table-column prop="R_name" label="机构名称"></el-table-column>
 			<el-table-column prop="R_code" label="机构编号"></el-table-column>
@@ -207,6 +206,10 @@ body{
 }
 .el-input{
 	width:200px;
+}
+tr{
+	left:100px;
+	height:70px;
 }
 </style>
 

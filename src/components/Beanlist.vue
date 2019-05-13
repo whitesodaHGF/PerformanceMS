@@ -60,10 +60,6 @@
   .item {
     padding: 18px 0;
   }
-
-  .box-card {
-    width: 1400px;
-  }
 </style>
 <script>
 import API from '../api/api_test';

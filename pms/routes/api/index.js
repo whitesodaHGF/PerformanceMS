@@ -2,8 +2,8 @@ var express = require('express');
 var router = express.Router();
 var indexRouter = {};
 
-router.use('/test', require('./test.js').router);
-router.use('/user', require('./users.js').router);
+router.use('/savepinfo', require('./savepinfo.js').router);
+router.use('/getpinfo', require('./getpinfo.js').router);
 router.use('/saveunitinfo', require('./saveunitinfo.js').router);
 router.use('/getunitinfo', require('./getunitinfo.js').router);
 router.use('/savebeaninfo', require('./savebeaninfo.js').router);

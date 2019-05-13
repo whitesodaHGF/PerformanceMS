@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var getbeanformRouter = {};
 
-const getbeanformController=require('../../controllers/test');
+const getbeanformController=require('../../controllers/get');
 
 //先检查登录
 // router.use(testController.T);
