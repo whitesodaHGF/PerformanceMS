@@ -32,6 +32,7 @@ import  login from '.././components/Login.vue'
 import  Register from '.././components/Register.vue'
 
 import mycourse from '.././components/mycourse.vue'
+import Home from '../components/Home'
 
 
 //import mycourseadd from '.././components/mycourseadd.vue'
