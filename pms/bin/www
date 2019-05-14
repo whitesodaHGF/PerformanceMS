@@ -3,7 +3,7 @@
 /**
  * Module dependencies.
  */
-
+require('./global');
 var app = require('../app');
 var debug = require('debug')('pms:server');
 var http = require('http');
