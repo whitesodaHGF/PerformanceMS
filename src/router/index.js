@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+
 import Bean from '.././components/Bean.vue'
 import Paper from '.././components/Paper.vue'
 import PInfo from '.././components/PInfo.vue'
 import ResearchUnit from '.././components/ResearchUnit.vue'
-import ProjectMain from '.././components/ProjectMain.vue'
 import HelloWorld from '.././components/HelloWorld.vue'
 import Unitlist from '.././components/Unitlist.vue'
 import Beanlist from '.././components/Beanlist.vue'
@@ -15,13 +15,26 @@ import UnitSearch from '.././components/UnitSearch.vue'
 import BeanSearch from '.././components/BeanSearch.vue'
 import PaperSearch from '.././components/PaperSearch.vue'
 
-import ProjectSeach from '.././components/ProjectSeach.vue'
-import Projectadd from '.././components/Projectadd.vue'
-import Projectapply from '.././components/Projectapply.vue'
-import Projectlist from '.././components/Projectlist.vue'
-import Projectchange from '.././components/Projectchange.vue'
-import Mycourse from '.././components/Mycourse.vue'
-import Mycourseadd from '.././components/Mycourseadd.vue'
+
+import Hprojectadd from '.././components/Hprojectadd'
+import Hprojectlist from '.././components/Hprojectlist.vue'
+import Hprojectsearch from '.././components/Hprojectsearch.vue'
+import Hprojectshow from '.././components/Hprojectshow.vue'
+
+import Zprojectadd from '.././components/Zprojectadd'
+import Zprojectlist from '.././components/Zprojectlist.vue'
+import Zprojectseach from '.././components/Zprojectseach.vue'
+import Zprojectshow from '.././components/Zprojectshow.vue'
+import Zprojectchange from '.././components/Zprojectchange.vue'
+import Zprojectinform from '.././components/Zprojectinform.vue'
+
+import  login from '.././components/Login.vue'
+import  Register from '.././components/Register.vue'
+
+import mycourse from '.././components/mycourse.vue'
+
+
+//import mycourseadd from '.././components/mycourseadd.vue'
 
 // 0. 如果使用模块化机制编程，导入Vue和VueRouter，要调用 Vue.use(VueRouter)
 Vue.use(VueRouter)
@@ -36,6 +49,15 @@ Vue.use(VueRouter)
 // 通过 Vue.extend() 创建的组件构造器，
 // 或者，只是一个组件配置对象。
 const routes = [
+  {
+    path: '/',
+    name: 'login',
+    component: login,
+  },
+  {
+    path:'/Home',
+    component:Home,
+    children:[
   {
     path: '/',
     name: '/',
@@ -73,40 +95,6 @@ const routes = [
     path:'/Paperlist',
     component:Paperlist,
   },
-
-  {
-    path: '/ProjectSeach',
-    component: ProjectSeach
-  },
-  {
-    path: '/ProjectMain',
-    component: ProjectMain
-  },
-  {
-    path: '/Projectadd',
-    component: Projectadd
-  },
-  {
-    path: '/Projectapply',
-    component: Projectapply
-  },
-  {
-    path: '/Projectlist',
-    name: 'Projectlist',
-    component: Projectlist
-  },
-  {
-    path: '/Projectchange',
-    component: Projectchange
-  },
-  {
-    path: '/Mycourse',
-    component:Mycourse
-  },
-  {
-    path: '/Mycourseadd',
-    component: Mycourseadd
-  },
   {
     path: '/Notice',
     component: Notice
@@ -127,6 +115,59 @@ const routes = [
     path: '/PaperSearch',
     component: PaperSearch
   },
+  {
+    path: '/Hprojectadd',
+    component: Hprojectadd
+  },
+  {
+    path: '/Hprojectlist',
+    component: Hprojectlist
+  },
+  {
+    path: '/Hprojectsearch',
+    component: Hprojectsearch
+  },
+  {
+    path: '/Hprojectshow',
+    component: Hprojectshow
+  },
+  {
+    path: '/Zprojectadd',
+    component: Zprojectadd
+  },
+  {
+    path: '/Zprojectlist',
+    component: Zprojectlist
+  },
+  {
+    path: '/Zprojectseach',
+    component: Zprojectseach
+  },
+  {
+    path: '/Zprojectshow',
+    component: Zprojectshow
+  },
+  {
+    path: '/Zprojectchange',
+    component: Zprojectchange
+  },
+  {
+    path: '/Zprojectinform',
+    component:Zprojectinform
+  },
+  {
+    path: '/mycourse',
+    component:mycourse
+  },
+  ]},
+  {
+    path:'/Register',
+    component:Register
+  },
+  {
+    path: '/Login',
+    component: login,
+  }
 ]
 
 // 3. 创建 router 实例，然后传 `routes` 配置

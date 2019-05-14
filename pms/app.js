@@ -1,9 +1,13 @@
-var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
+var createError = require('http-errors');
 var logger = require('morgan');
-
+var favicon = require('serve-favicon');
+var bodyParser = require('body-parser');
+var lessMiddleware = require('less-middleware');
+var session = require('express-session');
+var mysql=require("mysql");    
 //跨域
 var cors=require('cors');
 
@@ -25,7 +29,15 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter.router);
-//app.use('/users', usersRouter);
+
+app.use(session({
+  resave: false,
+  saveUninitialized: false,
+  cookie: {maxAge: 24 * 60 * 60 * 1000},  //设置maxAge是1天，即1天后session和相应的cookie失效过期
+  secret: 'love'
+}));
+app.use(lessMiddleware(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

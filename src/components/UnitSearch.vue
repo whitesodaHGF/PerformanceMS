@@ -57,7 +57,7 @@
               </div></td>
                 <td class='tdrowhead' colspan=1 rowspan=1 width='15%'>电话：</td>
                 <td class='list' colspan=1 rowspan=1 width='35%'><div id='researchUnit.tel'> 
-                  <el-input type='text' v-model='R_telOffice'  id='@tel' size=0  maxLength = '128'></el-input></div></td>
+                  <el-input type='text' v-model='R_tel'  id='@tel' size=0  maxLength = '128'></el-input></div></td>
               </tr>
               <tr>
                 <td class='tdrowhead' colspan=1 rowspan=1 width='15%'>传真：</td>

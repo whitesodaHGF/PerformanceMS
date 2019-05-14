@@ -26,21 +26,6 @@ router.patch('/changepwd', userController.changepwd);
 
 //返回user的集合
 router.get('/', userController.find);
-//
-// //返回指定的user
-// router.get('/:id', userController.findById);
-//
-// //创建user
-// router.post('/', userController.create);
-//
-// //更新user全部信息
-// router.put('/:id', userController.update);
-//
-// //更新user部分信息
-// router.patch('/:id', userController.patch);
-//
-// //删除指定的user
-// router.delete('/:id', userController.delete);
 
 indexRouter.router = router;
 

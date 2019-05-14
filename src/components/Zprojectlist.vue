@@ -5,6 +5,7 @@
     height="700"
     border
     style="width: 100%">
+     <el-table-column type="selection" prop="All" label="全选" ></el-table-column>
     <el-table-column
       prop="projectName"
       label="项目名称"
@@ -62,6 +63,7 @@
     data() {
       return {
         tableData3: [{
+           All:'',
         projectName:'',
         chargerName:'',
         starttime:'',
