@@ -1,8 +1,5 @@
-//const Mock = require('mockjs');
 const test = {};
 let AddController = {};
-// const Test = require('../data/test');
-// let _Test = Test;
 
 let _query=require('../data/mysqlpool');
 
@@ -16,47 +13,6 @@ AddController.ADD = (req,res)=>{
     console.log(result);
     res.send(result);
   });
-
-  
-  // let mysql = require('mysql');
-
-  // let connection = mysql.createConnection({
-  //   host: '127.0.0.1',
-  //   user: 'root',
-  //   password: 'password',
-  //   database: 'jxweb'
-  // });
-
-  // connection.connect(function (err) {
-  //   if (err) {
-  //     return console.error('error:' + err.message);
-  //   }
-  //   console.log('Connected to mysql server');
-  // });
-
-  // let addsql='insert into T_user values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
-  // // let str=req.body;
-  // // console.log(str);
-  // // res.send(str);
-  // let addsqlparams=['张三','201741400114','1999-08-05','男','教育学院（师范学 院）','无','博士','博士研究生','教授','学科建设骨干教师','2019','其他','社科类','是','马克 思主义','马克思主义研究','无','教育学院（师范学院）','15014116164','00000000','15014116164','15014116164','无','无','Alan','中共党员','马克思主义','44522xxxxxxxxxxxx','教学','博导','2007','无','中国','汉族','无','523000','00000000','00000000','无','在职','英语','无','良好','无','无','无','无','无','无'];
-
-
-  // connection.query(addsql,addsqlparams,function(err,result){
-  //   if(err){
-  //     console.log('[SELECT ERROR] -',err.message);
-  //     return;
-  //   }
-  //   //console.log(result);
-
-  //   connection.end(function (err) {
-  //     if (err) {
-  //       return console.log('error:' + err.message);
-  //     }
-  //     console.log('Close the databse connection.');
-  //   });
-
-  //   res.send('OK');
-  // });
 }
 
 AddController.saveUnitform=(req,res)=>{
