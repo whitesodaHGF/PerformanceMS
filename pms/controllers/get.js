@@ -2,7 +2,7 @@
 const test = {};
 let GetController = {};
 
-let _query = require('../data/mysqlpool');
+let _query = require('../data/db');
 
 /**
  * 获取用户信息
