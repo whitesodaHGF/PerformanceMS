@@ -53,7 +53,7 @@
 <div class="login-btn">
 	<el-row>
   <el-col :span=12>  
-	  <el-button  @click="onSubmit"  :loading="loading">确定</el-button></el-col>
+	  <el-button  @click="onSubmit" >确定</el-button></el-col>
   <el-col :span=12  :pull=2>
 	    <el-button @click="candle" >取消</el-button>
   </el-col>
@@ -198,15 +198,12 @@
 				let that = this;
 				this.$refs.Registerform.validate((valid) =>{
 					  if(valid) {
-					   
-					  this.loading = true;
 						let registerParams = {U_Puserid:this.registerform.useid,U_Ppasswd :this.registerform.pwd,U_Pmainbox:this.registerform.email,U_Ptelphoto:this.registerform.phone,U_Ppeoid:this.registerform.card};
 						API.register(registerParams).then(function (result){
 							that.$message(result);
                      },function (err) {
               that.$message.error({showClose: true, message: err.toString(), duration: 2000});
 				}).catch(function (error) {
-					that.loading = false;
 					console.log(error);
 					that.$message.error({showClose: true, message: '请求出现异常', duration: 2000});
 				});

@@ -121,7 +121,7 @@ userController.register=function (req, res){
   let  U_Ptelphoto =req.body.U_Ptelphoto;
   let  U_Ppeoid =req.body.U_Ppeoid;
   var  addSql = 'INSERT INTO U_Userinfom (U_Puserid,U_Ppasswd,U_Pmainbox,U_Ptelphoto,U_Ppeoid) VALUES (?,?,?,?,?)';
-  var  addSqlparmals=[];s= [U_Puserid,U_Ppasswd,U_Pmainbox,U_Ptelphoto,U_Ppeoid];
+  var  addSqlparmals=[U_Puserid,U_Ppasswd,U_Pmainbox,U_Ptelphoto,U_Ppeoid];
   console.log(addSql);
   _query(addSql,addSqlparmals,function(err,result){
     //do something
